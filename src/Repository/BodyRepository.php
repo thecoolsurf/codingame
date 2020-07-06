@@ -15,17 +15,18 @@ class BodyRepository extends ServiceEntityRepository
         parent::__construct($registry, Body::class);
     }
 
-    // /**
-    //  * @return Body[] Returns an array of Body objects
-    //  */
+    /**
+     * 
+     * @param Request $request
+     * @return array objet
+     */
     public function findBodyBySlug(Request $request)
     {
-        $slug = $request->query->get('url');
+        $slug = $request->query->get('url') ? $request->query->get('url') : 'home';
         return $this->createQueryBuilder('b')
             ->andWhere('b.slug = :slug')
             ->setParameter('slug', $slug)
             ->orderBy('b.id', 'ASC')
-            ->setMaxResults(1)
             ->getQuery()
             ->getResult()
         ;
