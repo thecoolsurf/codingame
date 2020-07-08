@@ -1,5 +1,5 @@
 #jumbotron {
-    background:url('/web/skin/images/bkg_bonobo.jpg') center center no-repeat;
+    background:url('/skin/images/bkg_jumbotron.jpg') center center no-repeat;
     position:relative;
     color:#FFF;
 }

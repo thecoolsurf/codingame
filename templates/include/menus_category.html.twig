@@ -1,0 +1,12 @@
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Practice
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for category in categories %}
+                <a class="dropdown-item" href="{{ 'practice'~'/'~category.slug~'/'~'exercice-'~category.id }}">{{ category.title|capitalize }}</a>
+            {% endfor %}
+        </div>
+    </li>
+</ul>
