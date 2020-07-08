@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\QuestionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Category;
+use App\Entity\Response;
 
 /**
  * @ORM\Entity(repositoryClass=QuestionRepository::class)
@@ -18,7 +20,7 @@ class Question
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=category::class, inversedBy="answer")
+     * @ORM\ManyToOne(targetEntity=category::class, inversedBy="question")
      */
     private $categories;
 

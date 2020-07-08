@@ -4,8 +4,8 @@
             Practice
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            {% for category in categories %}
-                <a class="dropdown-item" href="{{ 'practice'~'/'~category.slug~'/'~'exercice-'~category.id }}">{{ category.title|capitalize }}</a>
+            {% for question in questions %}
+                <a class="dropdown-item" href="{{ 'practice'~'/'~question.slug~'/'~'exercice-'~question.id }}">{{ question.title|capitalize }}</a>
             {% endfor %}
         </div>
     </li>

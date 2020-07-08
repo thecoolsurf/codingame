@@ -6,37 +6,35 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\Home\BodyRepository as BodyRep;
-use App\Repository\Practice\CategoryRepository as CategoryRep;
+use App\Repository\Practice\QuestionRepository as QuestionRep;
 
 class IndexController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/", name="home")
      */
-    public function index(BodyRep $bodyRep, CategoryRep $category_rep, Request $request)
+    public function home(BodyRep $bodyRep, QuestionRep $question_rep, Request $request)
     {
-        $url = $request->query->get('url') ? $request->query->get('url') : 'home';
         $body = $bodyRep->findBodyBySlug($request)[0];
-        $categories = $category_rep->findAll();
+        $questions = $question_rep->findQuetionForNavigation();
         return $this->render('public/home/index.html.twig', [
-            'url' => $url,
+            'url' => 'home',
             'body' => $body,
-            'categories' => $categories,
+            'questions' => $questions,
         ]);
     }
 
     /**
      * @Route("/about", name="about")
      */
-    public function about(BodyRep $bodyRep, CategoryRep $category_rep, Request $request)
+    public function about(BodyRep $bodyRep, QuestionRep $question_rep, Request $request)
     {
-        $url = $request->query->get('url') ? $request->query->get('url') : 'home';
         $body = $bodyRep->findBodyBySlug($request)[0];
-        $categories = $category_rep->findAll();
+        $questions = $question_rep->findQuetionForNavigation();
         return $this->render('public/home/about.html.twig', [
-            'url' => $url,
+            'url' => 'about',
             'body' => $body,
-            'categories' => $categories,
+            'questions' => $questions,
         ]);
     }
     
