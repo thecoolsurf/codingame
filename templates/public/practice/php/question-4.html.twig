@@ -18,7 +18,7 @@
                 </textarea>
             </p>
             <p>
-                <button type="button" class="btn btn-primary">Send my code</button>
+                <button type="button" class="btn btn-primary" id="sendmycode">Send my code</button>
             </p>
         </div>
     </div>
@@ -46,12 +46,19 @@
             </p>
             <p class="form-group">
                 <label for="lgy">Lng Y</label>
-                <input type="text" class="form-control" id="lgy" aria-describedby="ltyHelp" placeholder="0">
-                <small id="lgyHelp" class="form-text text-muted">Put your fourth point here...</small>
+                <input type="text" class="form-control" id="lgy" aria-describedby="lgyHelp" placeholder="0">
+                <small id="lgyHelp" class="form-text text-muted">Put your third point here...</small>
+            </p>
+        </div>
+        <div class="col">
+            <p class="form-group">
+                <label for="result">Result</label>
+                <input type="text" class="form-control" id="result" aria-describedby="resultHelp" placeholder="0">
+                <small id="resultHelp" class="form-text text-muted">Result for your code here.</small>
             </p>
         </div>
         <div class="col-12">
-            <button type="button" class="btn btn-primary">Test my code</button>
+            <button type="button" class="btn btn-primary" id="testmycode">Test my code</button>
         </div>
     </div>
 {% endblock %}

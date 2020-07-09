@@ -55,21 +55,41 @@ class QuestionController extends AbstractController
         $question = $question_rep->find($id);
         $response = $question->getResponse();
         $answer = $request->request->get('code');
-        dump($answer);
-        exit();
         if ($response):
+            $alert_class = 'alert-warning';
+            $alert_label = 'Update successfully!';
+            $response->setAnswer($answer);
+            $em->persist($response);
+            $em->flush();
+        else:
+            $alert_class = 'alert-success';
+            $alert_label = 'Insert successfully!';
             $response = new ResponseEntity();
             $response->setAnswer($answer);
             $em->persist($response);
             $em->flush();
-            $msg = '<div class="alert alert-warning" role="alert">Insert successfully!</div>';
-        else:
-            $response->setAnswer($answer);
-            $em->persist($response);
-            $em->flush();
-            $msg = '<div class="alert alert-success" role="alert">Update successfully!</div>';
         endif;
+        $msg  = '<div class="alert '.$alert_class.'" role="alert">';
+        $msg .= $alert_label;
+        $msg .= '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+        $msg .= '<span aria-hidden="true">&times;</span>';
+        $msg .= '</button>';
+        $msg .= '</div>';
         return new Response($msg);
+    }
+    
+    /**
+     * @Method({"POST"})
+     * @Route("/ajax/question/position", name="ajax_question_position")
+     */
+    public function getPosition(Request $request)
+    {
+        $ltx = $request->request->get('ltx');
+        $lty = $request->request->get('lty');
+        $lgx = $request->request->get('lgx');
+        $lgy = $request->request->get('lgy');
+        $result = sqrt(pow(($lgx-$ltx),2)+pow(($lgy-$lty),2));
+        return New Response($result);
     }
     
 }
