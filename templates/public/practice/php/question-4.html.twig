@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            <h3>{{ question.title }}</h3>
+            <p>{{ question.description }}</p>            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h5>Your code</h5>
+            <p>
+                <textarea id="textarea" class="form-control textarea" placeholder="Put your code here...">
+                    {% if question.response.answer %}
+                        {{ question.response.answer|nl2br }}
+                    {% endif %}
+                </textarea>
+            </p>
+            <p>
+                <button type="button" class="btn btn-primary">Send my code</button>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h5>Your result</h5>
+        </div>
+        <div class="col">
+            <p class="form-group">
+                <label for="ltx">Lat X</label>
+                <input type="text" class="form-control" id="ltx" aria-describedby="ltxHelp" placeholder="0">
+                <small id="ltxHelp" class="form-text text-muted">Put your first point here...</small>
+            </p>
+            <p class="form-group">
+                <label for="lgx">Lng X</label>
+                <input type="text" class="form-control" id="lgx" aria-describedby="lgxHelp" placeholder="0">
+                <small id="lgxHelp" class="form-text text-muted">Put your second point here...</small>
+            </p>
+        </div>
+        <div class="col">
+            <p class="form-group">
+                <label for="lty">Lat Y</label>
+                <input type="text" class="form-control" id="lty" aria-describedby="ltyHelp" placeholder="0">
+                <small id="ltyHelp" class="form-text text-muted">Put your third point here...</small>
+            </p>
+            <p class="form-group">
+                <label for="lgy">Lng Y</label>
+                <input type="text" class="form-control" id="lgy" aria-describedby="ltyHelp" placeholder="0">
+                <small id="lgyHelp" class="form-text text-muted">Put your fourth point here...</small>
+            </p>
+        </div>
+        <div class="col-12">
+            <button type="button" class="btn btn-primary">Test my code</button>
+        </div>
+    </div>
+{% endblock %}

@@ -30,13 +30,13 @@ class Category
     private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="question")
+     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="category")
      */
-    private $categories;
+    private $questions;
 
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
+        $this->questions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -69,34 +69,11 @@ class Category
     }
 
     /**
-     * @return Collection|Category[]
+     * @return Collection|Questions[]
      */
-    public function getCategories(): Collection
+    public function getQuestions(): Collection
     {
-        return $this->categories;
-    }
-
-    public function addCategory(Category $category): self
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories[] = $category;
-            $category->setQuestion($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        if ($this->categories->contains($category)) {
-            $this->categories->removeElement($category);
-            // set the owning side to null (unless already changed)
-            if ($category->getQuestion() === $this) {
-                $category->setQuestion(null);
-            }
-        }
-
-        return $this;
+        return $this->questions;
     }
 
 }

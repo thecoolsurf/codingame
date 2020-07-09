@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="rows">
+        <div class="col-12">
+            <h3>{{ question.title }}</h3>
+            <p>{{ question.description }}</p>            
+        </div>
+    </div>
+    <div class="rows">
+        <div class="col-12">
+            <h5>Your code</h5>
+            <p>
+                <textarea class="form-control" placeholder="Put your code here...">
+                    {% if question.response.answer %}
+                        {{ question.response.answer|nl2br }}
+                    {% endif %}
+                </textarea>
+            </p>
+        </div>
+    </div>
+    <div class="rows">
+        <div class="col-12">
+            <h5>Your result</h5>
+            <div id="my-result">
+                
+                {% set max = 10 %}
+                <table class="table">
+                    <thead>
+                    <tr>
+                    {% for i in 1..max %}
+                        <th scope="col">
+                            {{ i }}
+                        </th>
+                    {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in 1..max %}
+                        <tr>
+                        {% for j in 1..max %}
+                            {% set k = (i*j)-1 %}
+                            <td scope="row">
+                                {{ datas[k] }}
+                            </td>
+                        {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                    <td colspan="10">
+{#                        {{ 'Null values: '~ count_a~' - ' }}
+                        {{ 'Positives values: ' ~ count_b~' - ' }}
+                        {{ 'Negatives values: ' ~ count_c }}
+#}                    </td>
+                    </tr>
+                    </tbody>    
+                </table>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

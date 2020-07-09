@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Response
 {
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -23,9 +24,11 @@ class Response
     private $answer;
 
     /**
-     * @ORM\OneToOne(targetEntity=Question::class, mappedBy="answer", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Question::class, mappedBy="response", cascade={"persist", "remove"})
      */
-    private $response;
+    private $question;
+    
+    /* ********************************************************************** */
 
     public function getId(): ?int
     {
@@ -61,4 +64,5 @@ class Response
 
         return $this;
     }
+    
 }

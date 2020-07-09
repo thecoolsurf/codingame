@@ -5,40 +5,26 @@ namespace App\Repository\Practice;
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\Practice\CategoryRepository as CategoryRep;
+use App\Repository\Practice\QuestionRepository as QuestionRep;
 
 class CategoryRepository extends ServiceEntityRepository
 {
+    
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Category::class);
     }
-
-    // /**
-    //  * @return Category[] Returns an array of Category objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function getNavigationCategories(CategoryRep $category_rep, QuestionRep $question_rep)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $categories = $category_rep->findAll();
+        foreach ($categories as $category):
+            $id = $category->getId();
+            $slug = $category->getSlug();
+            $questions[$id] = $question_rep->findByCategory($slug);
+        endforeach;
+        return [$categories,$questions];
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Category
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+    
 }

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            <h3>{{ question.title }}</h3>
+            <p>{{ question.description }}</p>            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h5>Your code</h5>
+            <p>
+                <textarea class="form-control" placeholder="Put your code here...">
+                    {% if question.response.answer %}
+                        {{ question.response.answer|nl2br }}
+                    {% endif %}
+                </textarea>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h5>Your result</h5>
+            <div id="my-result">
+
+                <select>
+                    {% for i in 1..10 %}
+                        {% set j = loop.index %}
+                        <option value="{{ j }}">{{  'option - ' ~ i }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -14,35 +14,36 @@ class QuestionRepository extends ServiceEntityRepository
         parent::__construct($registry, Question::class);
     }
 
-    /**
-     * @return Question[] Returns an array of Question objects
-     */
-    public function findQuetionForNavigation()
+    public function getRandomNumeric()
     {
-        $query = $this->createQueryBuilder('q')
-        ->addSelect('c.id, c.title, c.slug')
-        ->leftJoin('q.categories', 'c')
-//        ->where('c.slug LIKE :slug')
-//        ->setParameter('slug', '%php%')
-        ->orderBy('c.slug', 'ASC')
-        ->getQuery()->getResult();
-        return $query;
+        $datas = [];
+        for ($i=0; $i<=50; $i++):
+            for ($j=0; $j<=50; $j++):
+                array_push($datas, mt_rand(-50,50));
+            endfor;
+        endfor;
+        return $datas;
     }
-
+    
+    public function getPosition($lgx, $ltx, $lgy, $lty)
+    {
+        return sqrt(pow(($lgx-$ltx),2)+pow(($lgy-$lty),2));
+    }
+    
     /**
      * @return Question[] Returns an array of Question objects
      */
-    public function findQuetionByCategory($slug)
+    public function findByCategory($slug)
     {
-        $query = $this->createQueryBuilder('q')
-            ->leftJoin('Category.id', 'c')
-            ->andWhere('c.slug = :slug')
+        $result = $this->createQueryBuilder('q')
+            ->addSelect('q.id AS question_id')
+            ->leftJoin('q.categories', 'c')
+            ->where('c.slug = :slug')
             ->setParameter('slug', $slug)
             ->orderBy('q.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult();
-        return $query;
+        return $result;
     }
 
 }

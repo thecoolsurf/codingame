@@ -25,15 +25,17 @@ class Question
     private $categories;
 
     /**
-     * @ORM\OneToOne(targetEntity=response::class, inversedBy="response", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=response::class, inversedBy="question", cascade={"persist", "remove"})
      */
-    private $answer;
+    private $response;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $title;
-
+    
+    /* ********************************************************************** */
+    
     /**
      * @ORM\Column(type="text", nullable=true)
      */
@@ -56,14 +58,14 @@ class Question
         return $this;
     }
 
-    public function getAnswer(): ?response
+    public function getResponse(): ?response
     {
-        return $this->answer;
+        return $this->response;
     }
 
-    public function setAnswer(?response $answer): self
+    public function setResponse(?response $response): self
     {
-        $this->answer = $answer;
+        $this->response = $response;
 
         return $this;
     }

@@ -1,12 +1,16 @@
 <ul class="navbar-nav mr-auto">
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Practice
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            {% for question in questions %}
-                <a class="dropdown-item" href="{{ 'practice'~'/'~question.slug~'/'~'exercice-'~question.id }}">{{ question.title|capitalize }}</a>
-            {% endfor %}
-        </div>
-    </li>
+    {% for category in categories %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ category.title|capitalize }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for question in questions[category.id] %}
+                    <a class="dropdown-item" href="{{ '/practice'~'/'~category.slug~'/'~'question-'~question.question_id }}">
+                        {{ 'question-'~question.question_id|capitalize }}
+                    </a>
+                {% endfor %}
+            </div>
+        </li>
+    {% endfor %}
 </ul>
