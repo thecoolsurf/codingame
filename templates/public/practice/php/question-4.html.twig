@@ -13,7 +13,7 @@
             <p>
                 <textarea id="textarea" class="form-control textarea" placeholder="Put your code here...">
                     {% if question.response.answer %}
-                        {{ question.response.answer|nl2br }}
+{{ question.response.answer|trim }}
                     {% endif %}
                 </textarea>
             </p>
@@ -54,4 +54,8 @@
             <button type="button" class="btn btn-primary">Test my code</button>
         </div>
     </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{{ asset('skin/js/public/question.js') }}"></script>
 {% endblock %}

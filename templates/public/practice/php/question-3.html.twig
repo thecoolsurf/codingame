@@ -1,25 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="rows">
+    <div class="row">
         <div class="col-12">
             <h3>{{ question.title }}</h3>
             <p>{{ question.description }}</p>            
         </div>
     </div>
-    <div class="rows">
+    <div class="row">
         <div class="col-12">
             <h5>Your code</h5>
             <p>
-                <textarea class="form-control" placeholder="Put your code here...">
+                <textarea id="textarea" class="form-control" placeholder="Put your code here...">
                     {% if question.response.answer %}
-                        {{ question.response.answer|nl2br }}
+{{ question.response.answer|raw }}
                     {% endif %}
                 </textarea>
             </p>
         </div>
     </div>
-    <div class="rows">
+    <div class="row">
         <div class="col-12">
             <h5>Your result</h5>
             <div id="my-result">
@@ -59,4 +59,8 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{{ asset('skin/js/public/question.js') }}"></script>
 {% endblock %}
