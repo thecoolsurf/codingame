@@ -11,9 +11,9 @@
         <div class="col-12">
             <h5>Your code</h5>
             <p>
-                <textarea id="textarea" class="form-control textarea" placeholder="Put your code here...">
+                <textarea id="textarea" class="form-control textarea" placeholder="Put your code here..." data-id="{{ question.response.id }}">
                     {% if question.response.answer %}
-{{ question.response.answer|trim }}
+                        {{ question.response.answer|trim }}
                     {% endif %}
                 </textarea>
             </p>

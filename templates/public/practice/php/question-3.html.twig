@@ -11,11 +11,14 @@
         <div class="col-12">
             <h5>Your code</h5>
             <p>
-                <textarea id="textarea" class="form-control" placeholder="Put your code here...">
+                <textarea id="textarea" class="form-control" placeholder="Put your code here..." data-id="{{ question.response.id }}">
                     {% if question.response.answer %}
-{{ question.response.answer|raw }}
+                        {{ question.response.answer|raw }}
                     {% endif %}
                 </textarea>
+            </p>
+            <p>
+                <button id="sendmycode" type="button" class="btn btn-primary">Send my code</button>
             </p>
         </div>
     </div>
@@ -23,36 +26,36 @@
         <div class="col-12">
             <h5>Your result</h5>
             <div id="my-result">
-                
+
                 {% set max = 10 %}
                 <table class="table">
                     <thead>
-                    <tr>
-                    {% for i in 1..max %}
-                        <th scope="col">
-                            {{ i }}
-                        </th>
-                    {% endfor %}
-                    </tr>
+                        <tr>
+                            {% for i in 1..max %}
+                                <th scope="col">
+                                    {{ i }}
+                                </th>
+                            {% endfor %}
+                        </tr>
                     </thead>
                     <tbody>
-                    {% for i in 1..max %}
-                        <tr>
-                        {% for j in 1..max %}
-                            {% set k = (i*j)-1 %}
-                            <td scope="row">
-                                {{ datas[k] }}
-                            </td>
+                        {% for i in 1..max %}
+                            <tr>
+                                {% for j in 1..max %}
+                                    {% set k = (i*j)-1 %}
+                                    <td scope="row">
+                                        {{ datas[k] }}
+                                    </td>
+                                {% endfor %}
+                            </tr>
                         {% endfor %}
+                        <tr>
+                            <td colspan="10">
+                                {#                        {{ 'Null values: '~ count_a~' - ' }}
+                                                        {{ 'Positives values: ' ~ count_b~' - ' }}
+                                                        {{ 'Negatives values: ' ~ count_c }}
+                                #}                    </td>
                         </tr>
-                    {% endfor %}
-                    <tr>
-                    <td colspan="10">
-{#                        {{ 'Null values: '~ count_a~' - ' }}
-                        {{ 'Positives values: ' ~ count_b~' - ' }}
-                        {{ 'Negatives values: ' ~ count_c }}
-#}                    </td>
-                    </tr>
                     </tbody>    
                 </table>
 

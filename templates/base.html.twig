@@ -2,13 +2,14 @@
 <html>
     {% include 'include/head.html.twig' %}
     <body>
-        <div class="container-sm">
+        <div class="container-sm" id="container">
             {% include 'include/menus.html.twig' %}
             {% include 'include/header.html.twig' %}
             {% include 'include/body.html.twig' %}
             {% block body %}{% endblock %}
             {% include 'include/footer.html.twig' %}
         </div>
+        <div id="haut"></div>
         {% block javascript %}{% endblock %}
     </body>
 </html>

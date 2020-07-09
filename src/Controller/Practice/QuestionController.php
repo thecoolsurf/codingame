@@ -3,16 +3,20 @@
 namespace App\Controller\Practice;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use App\Repository\Home\BodyRepository as BodyRep;
 use App\Repository\Practice\CategoryRepository as CategoryRep;
 use App\Repository\Practice\QuestionRepository as QuestionRep;
+use App\Entity\Response as ResponseEntity;
 
 class QuestionController extends AbstractController
 {
     
     /**
+     * @Method({"GET"})
      * @Route("/practice/{slug}/question-{id}", name="practice")
      */
     public function question(BodyRep $bodyRep, CategoryRep $category_rep, QuestionRep $question_rep, Request $request, $slug, $id)
@@ -39,6 +43,33 @@ class QuestionController extends AbstractController
             'question' => $question,
             'datas' => $datas,
         ]);
+    }
+    
+    /**
+     * @Method({"POST"})
+     * @Route("/ajax/question/updateorinsert/{id}", name="ajax_question_updateorinsert")
+     */
+    public function updateOrInsertCode(Request $request, QuestionRep $question_rep, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $question = $question_rep->find($id);
+        $response = $question->getResponse();
+        $answer = $request->request->get('code');
+        dump($answer);
+        exit();
+        if ($response):
+            $response = new ResponseEntity();
+            $response->setAnswer($answer);
+            $em->persist($response);
+            $em->flush();
+            $msg = '<div class="alert alert-warning" role="alert">Insert successfully!</div>';
+        else:
+            $response->setAnswer($answer);
+            $em->persist($response);
+            $em->flush();
+            $msg = '<div class="alert alert-success" role="alert">Update successfully!</div>';
+        endif;
+        return new Response($msg);
     }
     
 }

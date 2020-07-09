@@ -1,12 +1,22 @@
-function focusNavigation(){
-    var uri = document.location.href.split('/');
-    var n = uri.length-1;
-    var id = (uri[n])?uri[n]:uri[n-1];
-    $('body').attr('id',id);
-    $('#menu_'+id).removeClass().addClass('active');
+function sendmycode() {
+    var code = $('#textarea').val();
+    var id = $('#textarea').data('id');
+    var params = $.param({id:id,code:code});
+    $('#sendmycode').on('click', function () {
+        $.ajax({
+            type: 'GET',
+            url: host() + '/ajax/question/updateorinsert/' + id,
+            data: params,
+            dataType: 'text',
+            success: function (result) {
+                console.log(result);
+                $(result).prependTo('#container');
+            }
+        });
+    });
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     scrollTop();
-    focusNavigation();
+    sendmycode();
 });
