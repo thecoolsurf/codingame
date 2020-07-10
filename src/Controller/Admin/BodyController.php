@@ -5,9 +5,8 @@ namespace App\Controller\Admin;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use App\Repository\Practice\QuestionRepository as QuestionRep;
-use App\Repository\Practice\CategoryRepository as CategoryRep;
+use App\Repository\Home\BodyRepository as BodyRep;
+use App\Entity\Body;
 
 class BodyController extends AbstractController
 {
@@ -16,14 +15,38 @@ class BodyController extends AbstractController
      * @Method({"GET"})
      * @Route("/admin/body/listing", name="admin_body_listing")
      */
-    public function listing(CategoryRep $category_rep, QuestionRep $question_rep)
+    public function listing(BodyRep $body_rep)
     {
-        $navigation = $category_rep->getNavigationCategories($category_rep, $question_rep);
-        $rows = $question_rep->getRandomNumeric();
-        return $this->render('admin/listing/question.html.twig', [
-            'url' => 'admin',
-            'categories' => $navigation[0],
-            'questions' => $navigation[1],
+        $rows = $body_rep->findAll();
+        return $this->render('admin/listing/body.html.twig', [
+            'url' => 'admin - listing',
+            'rows' => $rows,
+        ]);
+    }
+    
+    /**
+     * @Method({"GET"})
+     * @Route("/admin/body/edit/{id}", name="admin_body_edit")
+     */
+    public function edit(BodyRep $body_rep, $id)
+    {
+        $body = $body_rep->find($id);
+        $form = $this->createForm(\App\Form\BodyFormType::class, $body);
+        return $this->render('admin/form/body.html.twig', [
+            'url' => 'admin - edit',
+            'form_edit' => $form->createView(),
+        ]);
+    }
+    
+    /**
+     * @Method({"GET"})
+     * @Route("/admin/body/delete/{id}", name="admin_body_delete")
+     */
+    public function delete(BodyRep $body_rep, $id)
+    {
+        $rows = $body_rep->find($id);
+        return $this->render('admin/listing/body.html.twig', [
+            'url' => 'admin - delete',
             'rows' => $rows,
         ]);
     }
