@@ -5,7 +5,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             {% for entity in ['body','category','question','response','user'] %}
-                <a class="dropdown-item" href="{{ '/admin/'~entity }}">{{ entity|capitalize }}</a>
+                <a class="dropdown-item" href="{{ '/admin/'~entity~'/listing' }}">{{ entity|capitalize }}</a>
             {% endfor %}
         </div>
     </li>

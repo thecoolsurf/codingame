@@ -1,3 +1,4 @@
+{% if 'admin' not in app.request.attributes.get('_route') %}
 <div class="row">
     {% if url == 'home' %}
         <div class="col-3">
@@ -11,3 +12,4 @@
         </div>
     {% endif %}
 </div>
+{% endif %}

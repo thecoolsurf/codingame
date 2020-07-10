@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            <h3>{{ question.title }}</h3>
+            <p>{{ question.description }}</p>            
+        </div>
+    </div>
+    <div class="rows">
+        <div class="col-12">
+            <h5>Your code</h5>
+            <p>
+                <textarea id="textarea" class="form-control" placeholder="Put your code here..." data-id="{{ question.response.id }}">
+                    {% if question.response.answer %}
+                        {{ question.response.answer|raw }}
+                        {{ question.response.id|raw }}
+                    {% endif %}
+                </textarea>
+            </p>
+            <p>
+                <button id="sendmycode" type="button" class="btn btn-primary">Send my code</button>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h5>Your result</h5>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{{ asset('skin/js/public/question.js') }}"></script>
+{% endblock %}
