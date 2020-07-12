@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\Home\BodyRepository as BodyRep;
-use App\Entity\Body;
 
 class BodyController extends AbstractController
 {

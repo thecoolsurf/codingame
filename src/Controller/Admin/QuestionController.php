@@ -5,9 +5,7 @@ namespace App\Controller\Admin;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 use App\Repository\Practice\QuestionRepository as QuestionRep;
-use App\Repository\Practice\CategoryRepository as CategoryRep;
 
 class QuestionController extends AbstractController
 {
@@ -16,14 +14,38 @@ class QuestionController extends AbstractController
      * @Method({"GET"})
      * @Route("/admin/question/listing", name="admin_question_listing")
      */
-    public function listing(CategoryRep $category_rep, QuestionRep $question_rep)
+    public function listing(QuestionRep $question_rep)
     {
-        $navigation = $category_rep->getNavigationCategories($category_rep, $question_rep);
-        $rows = $question_rep->getRandomNumeric();
+        $rows = $question_rep->findAll();
         return $this->render('admin/listing/question.html.twig', [
             'url' => 'question',
-            'categories' => $navigation[0],
-            'questions' => $navigation[1],
+            'rows' => $rows,
+        ]);
+    }
+    
+    /**
+     * @Method({"GET"})
+     * @Route("/admin/question/edit/{id}", name="admin_question_edit")
+     */
+    public function edit(QuestionRep $question_rep, $id)
+    {
+        $question = $question_rep->find($id);
+        $form = $this->createForm(\App\Form\QuestionFormType::class, $question);
+        return $this->render('admin/form/question.html.twig', [
+            'url' => 'admin - edit',
+            'form_edit' => $form->createView(),
+        ]);
+    }
+    
+    /**
+     * @Method({"GET"})
+     * @Route("/admin/question/delete/{id}", name="admin_question_delete")
+     */
+    public function delete(QuestionRep $question_rep, $id)
+    {
+        $rows = $question_rep->find($id);
+        return $this->render('admin/listing/question.html.twig', [
+            'url' => 'admin - delete',
             'rows' => $rows,
         ]);
     }

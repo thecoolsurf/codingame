@@ -95,7 +95,8 @@ button[name="friend-insert"]:hover span,
 button[name="friend-delete"]:hover span {
     color:#555;
 }
-#textarea {
+#textarea
+.textarea {
     max-width: none;
     min-height: 150px;
     width: 100%;

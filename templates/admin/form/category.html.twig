@@ -1,0 +1,18 @@
+{# templates/admin/form/category.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - edit category{% endblock %}
+
+{% block body %}
+    <div class="col-xs-12">
+        {{form_start(form_edit)}}
+        <p class="form-group">
+            {{form_row(form_edit.title)}}
+        </p>
+        <p class="form-group">
+            {{form_row(form_edit.slug)}}
+        </p>
+        {{form_end(form_edit)}}
+    </div>
+{% endblock %}
