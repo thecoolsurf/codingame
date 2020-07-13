@@ -1,7 +1,32 @@
+{# templates/admin/listing/user.html.twig #}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Admin - listing user{% endblock %}
 
 {% block body %}
+    <div class="col-xs-12">
+        <table class="table" width="100%">
+            <tbody>
+                <tr>
+                    <th>Lastname</th>
+                    <th>Firstname</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                </tr>
+                {% for row in rows %}
+                <tr id="{{ 'row'~row.id }}">
+                    <td>{{ row.lastname }}</td>
+                    <td>{{ row.firstname }}</td>
+                    <td>{{ row.email }}</td>
+                    <td>{{ row.phone }}</td>
+                    <td>
+                        <a href="{{ path('admin_user_edit', { 'id':row.id }) }}" class="btn"><i class="fa fa-pencil"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}

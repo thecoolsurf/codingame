@@ -47,17 +47,17 @@ class Response
         return $this;
     }
 
-    public function getResponse(): ?Question
+    public function getQuestion(): ?Question
     {
-        return $this->response;
+        return $this->question;
     }
 
-    public function setResponse(?Question $response): self
+    public function setQuestion(?Question $question): self
     {
-        $this->response = $response;
+        $this->question = $question;
 
         // set (or unset) the owning side of the relation if necessary
-        $newAnswer = null === $response ? null : $this;
+        $newAnswer = null === $question ? null : $this;
         if ($response->getAnswer() !== $newAnswer) {
             $response->setAnswer($newAnswer);
         }

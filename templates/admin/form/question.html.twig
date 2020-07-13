@@ -13,6 +13,15 @@
         <p class="form-group">
             {{form_row(form_edit.title)}}
         </p>
+        <p class="form-group">
+            {{form_row(form_edit.description)}}
+        </p>
+        <p class="form-group">
+            {{form_row(form_edit.submit)}}
+        </p>
+        <p class="form-group">
+            <a href="{{ path('admin_question_listing') }}">Back to listing</a>
+        </p>
         {{form_end(form_edit)}}
     </div>
 {% endblock %}

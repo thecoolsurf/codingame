@@ -24,6 +24,7 @@ class QuestionFormType extends AbstractType
                      return $er->createQueryBuilder('c')->orderBy('c.title','ASC');
                 },
                 'choice_label'=>'title',
+                 'attr' => ['class' => 'form-row'],
             ])
             ->add('title', TextType::class, [
                 'constraints'=>new NotBlank(['message'=>'Complete this field.']),
@@ -31,7 +32,7 @@ class QuestionFormType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'constraints'=>new NotBlank(['message'=>'Complete this field.']),
-                 'attr' => ['class' => 'form-row textarea'],
+                 'attr' => ['class' => 'form-row'],
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary'],

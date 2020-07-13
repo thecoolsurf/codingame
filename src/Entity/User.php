@@ -33,6 +33,43 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+    
+    /**
+     * @ORM\Column(type="string", length=180, unique=false)
+     */
+    private $lastname;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=false)
+     */
+    private $firstname;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=false)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=false)
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=false)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=false)
+     */
+    private $zipcode;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=false)
+     */
+    private $city;
+
+    /* ********************************************************************** */
 
     public function getId(): ?int
     {
@@ -41,7 +78,7 @@ class User implements UserInterface
 
     /**
      * A visual identifier that represents this user.
-     *
+     *username
      * @see UserInterface
      */
     public function getUsername(): string
@@ -57,6 +94,8 @@ class User implements UserInterface
     }
 
     /**
+     * A visual identifier that represents this user.
+     * 
      * @see UserInterface
      */
     public function getRoles(): array
@@ -106,4 +145,110 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+    
+    /**
+     *
+     */
+    public function getLastname(): string
+    {
+        return (string) $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     *
+     */
+    public function getFirstname(): string
+    {
+        return (string) $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     *
+     */
+    public function getEmail(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     *
+     */
+    public function getPhone(): string
+    {
+        return (string) $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     *
+     */
+    public function getAddress(): string
+    {
+        return (string) $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     *
+     */
+    public function getZipcode(): string
+    {
+        return (string) $this->zipcode;
+    }
+
+    public function setZipcode(string $zipcode): self
+    {
+        $this->zipcode = $zipcode;
+
+        return $this;
+    }
+
+    /**
+     *
+     */
+    public function getCity(): string
+    {
+        return (string) $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
 }
