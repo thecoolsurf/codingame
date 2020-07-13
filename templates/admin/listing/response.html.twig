@@ -16,7 +16,7 @@
                     {{ dump(row) }}
                 <tr id="{{ 'row'~row.id }}">
 {#                    <td>{{ row.question.categories.title }}</td>#}
-                    <td>{{ row.question.title }}</td>
+{#                    <td>{{ row.question.title }}</td>#}
                     <td>
                         <a href="{{ path('admin_response_edit', { 'id':row.id }) }}" class="btn"><i class="fa fa-pencil"></i></a>
                     </td>
