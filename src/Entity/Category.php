@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\Practice\CategoryRepository;
 
@@ -29,16 +27,8 @@ class Category
      */
     private $slug;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="category")
-     */
-    private $questions;
-
-    public function __construct()
-    {
-        $this->questions = new ArrayCollection();
-    }
-
+    /* ********************************************************************** */
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -66,14 +56,6 @@ class Category
         $this->slug = $slug;
 
         return $this;
-    }
-
-    /**
-     * @return Collection|Questions[]
-     */
-    public function getQuestions(): Collection
-    {
-        return $this->questions;
     }
 
 }

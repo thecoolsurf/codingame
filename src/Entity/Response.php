@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ResponseRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Question;
 
 /**
  * @ORM\Entity(repositoryClass=ResponseRepository::class)

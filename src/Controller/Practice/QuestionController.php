@@ -24,6 +24,8 @@ class QuestionController extends AbstractController
         $body = $bodyRep->findBodyBySlug($request)[0];
         $navigation = $category_rep->getNavigationCategories($category_rep, $question_rep);
         $question = $question_rep->find($id);
+        $response = $question ? $question->getResponse() : new Response();
+        // CAUTION: carefull with Datafixture auto increment
         switch ($id):
             case 3:
                 $datas = $question_rep->getRandomNumeric();
@@ -41,6 +43,7 @@ class QuestionController extends AbstractController
             'categories' => $navigation[0],
             'questions' => $navigation[1],
             'question' => $question,
+            'response' => $response,
             'datas' => $datas,
         ]);
     }

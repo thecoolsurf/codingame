@@ -20,7 +20,9 @@ class Question
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=category::class, inversedBy="question")
+     * Many Question() have One Category()
+     * @ORM\ManyToOne(targetEntity="Category", cascade={"persist"})
+     * @ORM\JoinColumn(name="categories_id", referencedColumnName="id")
      */
     private $categories;
 

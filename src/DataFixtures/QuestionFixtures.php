@@ -15,13 +15,17 @@ class QuestionFixtures extends Fixture
         $menus = ['php', 'javascript', 'mysql'];
         
         foreach ($menus as $slug):
+            $category = new Category();
+            $category->setTitle(ucfirst($slug));
+            $category->setSlug($slug);
+            $em->persist($category);
             for ($i=1; $i<=5; $i++):
-                $entity = new Question();
-                $entity->setCategories(new Category());
-                $entity->setResponse(null);
-                $entity->setTitle(ucfirst('Exercice '.$slug.' N°'.$i));
-                $entity->setDescription('Description de l\'exercice '.$slug.' N°'.$i);
-                $em->persist($entity);
+                $question = new Question();
+                $question->setCategories($category);
+                $question->setResponse(null);
+                $question->setTitle(ucfirst('Exercice '.$slug.' N°'.$i));
+                $question->setDescription('Description de l\'exercice '.$slug.' N°'.$i);
+                $em->persist($question);
             endfor;
         endforeach;
         $em->flush();
