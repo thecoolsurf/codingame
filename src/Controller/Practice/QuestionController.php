@@ -17,6 +17,7 @@ class QuestionController extends AbstractController
 {
     
     /**
+     * Public display question by ID
      * @Method({"GET"})
      * @Route("/practice/{slug}/question-{id}", name="practice")
      */
@@ -50,15 +51,17 @@ class QuestionController extends AbstractController
     }
     
     /**
+     * Update or insert response by question ID
      * @Method({"POST"})
-     * @Route("/ajax/question/updateorinsert", name="ajax_question_updateorinsert")
+     * @Route("/ajax/question/updateorinsert", name="ajax_question_updateorinsert")for
      */
-    public function updateOrInsertCode(Request $request, ResponseRep $response_rep)
+    public function updateOrInsertCode(Request $request, QuestionRep $question_rep, ResponseRep $response_rep)
     {
         $id = $request->request->get('id');
         $answer = $request->request->get('code');
         $em = $this->getDoctrine()->getManager();
-        $response = $response_rep->findBy(['question'=>$id]);
+        $question = $question_rep->find($id);
+        $response = $response_rep->findBy(['question'=>$id])[0];
         if ($response):
             $alert_class = 'alert-warning';
             $alert_label = 'Update successfully!';
@@ -67,7 +70,8 @@ class QuestionController extends AbstractController
             $alert_label = 'Insert successfully!';
             $response = new ResponseEntity();
         endif;
-        $response->setAnswer($answer);
+        $response->setQuestion($question);
+        $response->setAnswer('$answer');
         $em->persist($response);
         $em->flush();
         $msg  = '<div class="alert '.$alert_class.'" role="alert">';
@@ -80,6 +84,7 @@ class QuestionController extends AbstractController
     }
     
     /**
+     * Display result code for the question number 4
      * @Method({"POST"})
      * @Route("/ajax/question/position", name="ajax_question_position")
      */

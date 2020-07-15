@@ -13,7 +13,7 @@ class UserFixtures extends Fixture
     
     public function __construct()
     {
-        $this->faker = Factory::create();
+        $this->faker = Factory::create('fr_FR');
     }
 
     public function load(ObjectManager $em)
@@ -21,8 +21,6 @@ class UserFixtures extends Fixture
         $twig = new TwigExtension();
         for ($i=1; $i<=10; $i++):
             $item = $twig->numberToStringList($i);
-            $phone = '0'.mt_rand(1,9).' '.mt_rand(10,20).' '.mt_rand(10,20).' '.mt_rand(10,20).' '.mt_rand(10,20);
-            $zipcode = '750'.mt_rand(10,20);
             $user = new User();
             $user->setUsername('user'.$item);
             $user->setPassword('pass'.$item);
@@ -30,10 +28,10 @@ class UserFixtures extends Fixture
             $user->setLastname(strtoupper($this->faker->lastname));
             $user->setFirstname(ucfirst($this->faker->firstname));
             $user->setEmail($this->faker->email);
-            $user->setPhone($phone);
+            $user->setPhone($this->faker->phoneNumber);
             $user->setAddress($this->faker->address);
-            $user->setZipcode($zipcode);
-            $user->setCity('PARIS');
+            $user->setZipcode($this->faker->postcode);
+            $user->setCity(strtoupper($this->faker->city));
             $em->persist($user);
         endfor;
         $em->flush();
