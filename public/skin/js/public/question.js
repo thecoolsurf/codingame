@@ -5,7 +5,7 @@ function sendmycode() {
     $('#sendmycode').on('click', function () {
         $.ajax({
             type: 'POST',
-            url: host() + '/ajax/question/updateorinsert/' + id,
+            url: host() + '/ajax/question/updateorinsert',
             data: params,
             dataType: 'text',
             success: function (result) {

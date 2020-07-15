@@ -22,7 +22,6 @@ class QuestionFixtures extends Fixture
             for ($i=1; $i<=5; $i++):
                 $question = new Question();
                 $question->setCategories($category);
-                $question->setResponse(null);
                 $question->setTitle(ucfirst('Exercice '.$slug.' N°'.$i));
                 $question->setDescription('Description de l\'exercice '.$slug.' N°'.$i);
                 $em->persist($question);

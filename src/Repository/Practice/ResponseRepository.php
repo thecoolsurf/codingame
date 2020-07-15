@@ -17,7 +17,7 @@ class ResponseRepository extends ServiceEntityRepository
     public function findByQuestion($id): ?Response
     {
         return $this->createQueryBuilder('r')
-            ->where('r.response = :id')
+            ->where('r.question = :id')
             ->setParameter('id', $id)
             ->getQuery()
             ->getResult()

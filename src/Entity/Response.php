@@ -25,7 +25,7 @@ class Response
     private $answer;
 
     /**
-     * @ORM\OneToOne(targetEntity=Question::class, mappedBy="response", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Question::class, cascade={"persist", "remove"})
      */
     private $question;
     
@@ -51,17 +51,11 @@ class Response
     public function getQuestion(): ?Question
     {
         return $this->question;
-    }
+}
 
     public function setQuestion(?Question $question): self
     {
         $this->question = $question;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newAnswer = null === $question ? null : $this;
-        if ($response->getAnswer() !== $newAnswer) {
-            $response->setAnswer($newAnswer);
-        }
 
         return $this;
     }

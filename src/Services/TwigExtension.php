@@ -2,11 +2,8 @@
 
 namespace App\Services;
 
-use Twig_Extension;
-use Twig_SimpleFunction;
-use TextHtmlTools;
 
-class TwigExtension extends Twig_Extension
+class TwigExtension
 {
 
     public $twig;
@@ -108,6 +105,12 @@ class TwigExtension extends Twig_Extension
             $randompass .= \substr($charts, \rand() % (\strlen($charts)), 1);
         endfor;
         return $randompass;
+    }
+    
+    public function numberToStringList($val)
+    {
+        $string = $val<10 ? '0'.$val : $val;
+        return $string;
     }
 
 }

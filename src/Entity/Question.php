@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\QuestionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Category;
-use App\Entity\Response;
 
 /**
  * @ORM\Entity(repositoryClass=QuestionRepository::class)
@@ -25,11 +24,6 @@ class Question
      * @ORM\JoinColumn(name="categories_id", referencedColumnName="id")
      */
     private $categories;
-
-    /**
-     * @ORM\OneToOne(targetEntity=response::class, inversedBy="question", cascade={"persist", "remove"})
-     */
-    private $response;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -56,18 +50,6 @@ class Question
     public function setCategories(?category $categories): self
     {
         $this->categories = $categories;
-
-        return $this;
-    }
-
-    public function getResponse(): ?response
-    {
-        return $this->response;
-    }
-
-    public function setResponse(?response $response): self
-    {
-        $this->response = $response;
 
         return $this;
     }

@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Repository\Home\BodyRepository as BodyRep;
 use App\Repository\Practice\CategoryRepository as CategoryRep;
 use App\Repository\Practice\QuestionRepository as QuestionRep;
+use App\Repository\Practice\ResponseRepository as ResponseRep;
 use App\Entity\Response as ResponseEntity;
 
 class QuestionController extends AbstractController
@@ -19,12 +20,12 @@ class QuestionController extends AbstractController
      * @Method({"GET"})
      * @Route("/practice/{slug}/question-{id}", name="practice")
      */
-    public function question(BodyRep $bodyRep, CategoryRep $category_rep, QuestionRep $question_rep, Request $request, $slug, $id)
+    public function question(BodyRep $bodyRep, CategoryRep $category_rep, QuestionRep $question_rep, ResponseRep $response_rep, Request $request, $slug, $id)
     {
         $body = $bodyRep->findBodyBySlug($request)[0];
         $navigation = $category_rep->getNavigationCategories($category_rep, $question_rep);
         $question = $question_rep->find($id);
-        $response = $question ? $question->getResponse() : new Response();
+        $response = $response_rep->findBy(['question'=>$id]);
         // CAUTION: carefull with Datafixture auto increment
         switch ($id):
             case 3:
@@ -50,28 +51,25 @@ class QuestionController extends AbstractController
     
     /**
      * @Method({"POST"})
-     * @Route("/ajax/question/updateorinsert/{id}", name="ajax_question_updateorinsert")
+     * @Route("/ajax/question/updateorinsert", name="ajax_question_updateorinsert")
      */
-    public function updateOrInsertCode(Request $request, QuestionRep $question_rep, $id)
+    public function updateOrInsertCode(Request $request, ResponseRep $response_rep)
     {
-        $em = $this->getDoctrine()->getManager();
-        $question = $question_rep->find($id);
-        $response = $question->getResponse();
+        $id = $request->request->get('id');
         $answer = $request->request->get('code');
+        $em = $this->getDoctrine()->getManager();
+        $response = $response_rep->findBy(['question'=>$id]);
         if ($response):
             $alert_class = 'alert-warning';
             $alert_label = 'Update successfully!';
-            $response->setAnswer($answer);
-            $em->persist($response);
-            $em->flush();
         else:
             $alert_class = 'alert-success';
             $alert_label = 'Insert successfully!';
             $response = new ResponseEntity();
-            $response->setAnswer($answer);
-            $em->persist($response);
-            $em->flush();
         endif;
+        $response->setAnswer($answer);
+        $em->persist($response);
+        $em->flush();
         $msg  = '<div class="alert '.$alert_class.'" role="alert">';
         $msg .= $alert_label;
         $msg .= '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';

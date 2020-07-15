@@ -9,8 +9,8 @@
     </div>
     <div class="row">
         <div class="col-12">
-            {% set response_id = response ? response : null %}
-            {% set response_answer = response ? response : null %}
+            {% set response_id = app.request.get('id') %}
+            {% set response_answer = response ? response.answer : null %}
             <h5>Your code</h5>
             <p>
                 <textarea id="textarea" class="form-control" placeholder="Put your code here..." data-id="{{ response_id }}">
