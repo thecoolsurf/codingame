@@ -28,8 +28,8 @@ function testmycode() {
             url: host() + '/ajax/question/position',
             data: params,
             dataType: 'text',
-            success: function (result) {
-                $('#result').val(result);
+            success: function (msg) {
+                $('#result').html(msg);
             }
         });
     });
