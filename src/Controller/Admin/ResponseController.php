@@ -30,7 +30,7 @@ class ResponseController extends AbstractController
     public function edit(ResponseRep $response_rep, $id)
     {
         $response = $response_rep->find($id);
-        $form = $this->createForm(\App\Form\QuestionFormType::class, $response);
+        $form = $this->createForm(\App\Form\ResponseFormType::class, $response);
         return $this->render('admin/form/response.html.twig', [
             'url' => 'admin - edit',
             'form_edit' => $form->createView(),
