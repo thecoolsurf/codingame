@@ -95,12 +95,28 @@ button[name="friend-insert"]:hover span,
 button[name="friend-delete"]:hover span {
     color:#555;
 }
-#textarea
-.textarea {
+.form-row {
+    padding: 2px 5px;
+    border: 1px solid #CECECE;
+    border-radius: 0px;
+}
+#textarea,
+.textarea,
+textarea.form-control,
+textarea.form-row {
     max-width: none;
     min-height: 150px;
     width: 100%;
 }
+form {
+    width: 100%;
+}
+form div,
+form p {
+    width: 100%;
+}
+
+/* ************************************************************************** */
 
 .loader {
     background:#FFCC33;

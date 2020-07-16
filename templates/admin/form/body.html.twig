@@ -6,24 +6,22 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-xs-12">
-            {{form_start(form_edit)}}
-            <p class="form-group">
-                {{form_row(form_edit.title)}}
-            </p>
-            <p class="form-group">
-                {{form_row(form_edit.slug)}}
-            </p>
-            <p class="form-group">
-                {{form_row(form_edit.description)}}
-            </p>
-            <p class="form-group">
-                {{form_row(form_edit.submit)}}
-            </p>
-            <p class="form-group">
-                <a href="{{ path('admin_body_listing') }}">Back to listing</a>
-            </p>
-            {{form_end(form_edit)}}
-        </div>
+        {{form_start(form_edit)}}
+        <p class="form-group">
+            {{form_row(form_edit.title)}}
+        </p>
+        <p class="form-group">
+            {{form_row(form_edit.slug)}}
+        </p>
+        <p class="form-group">
+            {{form_row(form_edit.description)}}
+        </p>
+        <p class="form-group">
+            {{form_row(form_edit.submit)}}
+        </p>
+        <p class="form-group">
+            <a href="{{ path('admin_body_listing') }}">Back to listing</a>
+        </p>
+        {{form_end(form_edit)}}
     </div>
 {% endblock %}

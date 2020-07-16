@@ -10,6 +10,7 @@ function sendmycode() {
             data: params,
             dataType: 'text',
             success: function (result) {
+                scrollTo();
                 $(result).appendTo('#msg');
             }
         });

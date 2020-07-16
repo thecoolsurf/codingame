@@ -82,7 +82,7 @@ class QuestionController extends AbstractController
             $response = new ResponseEntity();
         endif;
         $response->setQuestion($question);
-        $response->setAnswer($code);
+        $response->setAnswer(trim($code));
         $em->persist($response);
         $em->flush();
         $msg  = '<div class="alert '.$alert_class.'" role="alert">';
