@@ -9,11 +9,11 @@
     </div>
     <div class="row">
         <div class="col-12">
-            {% set response_id = app.request.get('id') %}
+            {% set question_id = question ? question.id : null %}
             {% set response_answer = response ? response.answer : null %}
             <h5>Your code</h5>
             <p>
-                <textarea id="textarea" class="form-control" placeholder="Put your code here..." data-id="{{ response_id }}">
+                <textarea id="textarea" class="form-control" placeholder="Put your code here..." data-id="{{ question_id }}">
                     {{ response_answer|nl2br }}
                 </textarea>
             </p>
@@ -26,14 +26,7 @@
         <div class="col-12">
             <h5>Your result</h5>
             <div id="my-result">
-
-                <select>
-                    {% for i in 1..10 %}
-                        {% set j = loop.index %}
-                        <option value="{{ j }}">{{  'option - ' ~ i }}</option>
-                    {% endfor %}
-                </select>
-
+                {% include 'public/practice/'~slug~'/answer-'~question.id~'.html.twig' %}
             </div>
         </div>
     </div>

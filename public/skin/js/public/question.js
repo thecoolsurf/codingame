@@ -2,6 +2,7 @@ function sendmycode() {
     var code = $('#textarea').val();
     var id = $('#textarea').data('id');
     var params = $.param({id:id,code:code});
+    console.log(id+'|'+code);
     $('#sendmycode').on('click', function () {
         $.ajax({
             type: 'POST',
@@ -9,7 +10,7 @@ function sendmycode() {
             data: params,
             dataType: 'text',
             success: function (result) {
-                $(result).prependTo('#container');
+                $(result).appendTo('#msg');
             }
         });
     });

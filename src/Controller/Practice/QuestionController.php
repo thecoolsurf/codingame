@@ -26,7 +26,12 @@ class QuestionController extends AbstractController
         $body = $bodyRep->findBodyBySlug($request)[0];
         $navigation = $category_rep->getNavigationCategories($category_rep, $question_rep);
         $question = $question_rep->find($id);
-        $response = $response_rep->findBy(['question'=>$id]);
+        // response
+        if (array_key_exists(0, $response_rep->findBy(['question'=>$id]))):
+            $response = $response_rep->findBy(['question'=>$id])[0];
+        else:
+            $response = $response_rep->findBy(['question'=>$id]);
+        endif;
         // CAUTION: carefull with Datafixture auto increment
         switch ($id):
             case 3:
@@ -39,8 +44,9 @@ class QuestionController extends AbstractController
                 $datas = [];
             break;
         endswitch;
-        return $this->render('public/practice/'.$slug.'/question-'.$id.'.html.twig', [
+        return $this->render('public/practice/'.$slug.'/question.html.twig', [
             'url' => 'practice',
+            'slug' => $slug,
             'body' => $body,
             'categories' => $navigation[0],
             'questions' => $navigation[1],
@@ -53,15 +59,20 @@ class QuestionController extends AbstractController
     /**
      * Update or insert response by question ID
      * @Method({"POST"})
-     * @Route("/ajax/question/updateorinsert", name="ajax_question_updateorinsert")for
+     * @Route("/ajax/question/updateorinsert", name="ajax_question_updateorinsert")
      */
     public function updateOrInsertCode(Request $request, QuestionRep $question_rep, ResponseRep $response_rep)
     {
         $id = $request->request->get('id');
-        $answer = $request->request->get('code');
+        $code = $request->request->get('code');
         $em = $this->getDoctrine()->getManager();
         $question = $question_rep->find($id);
-        $response = $response_rep->findBy(['question'=>$id])[0];
+        // response
+        if (array_key_exists(0, $response_rep->findBy(['question'=>$id]))):
+            $response = $response_rep->findBy(['question'=>$id])[0];
+        else:
+            $response = $response_rep->findBy(['question'=>$id]);
+        endif;
         if ($response):
             $alert_class = 'alert-warning';
             $alert_label = 'Update successfully!';
@@ -71,7 +82,7 @@ class QuestionController extends AbstractController
             $response = new ResponseEntity();
         endif;
         $response->setQuestion($question);
-        $response->setAnswer('$answer');
+        $response->setAnswer($code);
         $em->persist($response);
         $em->flush();
         $msg  = '<div class="alert '.$alert_class.'" role="alert">';
