@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use App\Repository\Home\UserRepository as UserRep;
+use App\Repository\UserRepository as UserRep;
 use App\Form\UserFormType;
 use App\Entity\User;
 

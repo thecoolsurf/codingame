@@ -26,14 +26,14 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
 
     public const LOGIN_ROUTE = 'login';
 
-    private $entityManager;
+    private $em;
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $em, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $this->entityManager = $entityManager;
+        $this->em = $em;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
@@ -67,7 +67,7 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['username' => $credentials['username']]);
+        $user = $this->em->getRepository(User::class)->findOneBy(['username' => $credentials['username']]);
 
         if (!$user) {
             // fail authentication with a custom error
