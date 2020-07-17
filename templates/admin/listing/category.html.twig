@@ -5,12 +5,14 @@
 {% block title %}Admin - listing category{% endblock %}
 
 {% block body %}
-    <div class="col-xs-12">
+    <div class="row">
         <table class="table" width="100%">
             <tbody>
                 <tr>
                     <th>Title</th>
                     <th>Slug</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
                 {% for row in rows %}
                 <tr id="{{ 'row'~row.id }}">
@@ -19,10 +21,16 @@
                     <td>
                         <a href="{{ path('admin_category_edit', { 'id':row.id }) }}" class="btn"><i class="fa fa-pencil"></i></a>
                     </td>
+                    <td>
+                        <a href="{{ path('admin_category_delete', { 'id':row.id }) }}" class="btn"><i class="fa fa-trash"></i></a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+    <div class="row">
+        <a href="{{ path('admin_category_new') }}" class="btn btn-primary">Add category</a>
     </div>
 
 {% endblock %}
