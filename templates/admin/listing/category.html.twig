@@ -5,23 +5,27 @@
 {% block title %}Admin - listing category{% endblock %}
 
 {% block body %}
+    <div class="row" style="display: flow-root">
+        <p><a href="{{ path('admin_category_new') }}" class="btn btn-primary">Add category</a></p>
+        <span style="float:right">{{ 'Total: '~rows|length }}</span>
+    </div>
     <div class="row">
         <table class="table" width="100%">
             <tbody>
                 <tr>
                     <th>Title</th>
                     <th>Slug</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 {% for row in rows %}
                 <tr id="{{ 'row'~row.id }}">
                     <td>{{ row.title }}</td>
                     <td>{{ row.slug }}</td>
-                    <td>
+                    <td width="50">
                         <a href="{{ path('admin_category_edit', { 'id':row.id }) }}" class="btn"><i class="fa fa-pencil"></i></a>
                     </td>
-                    <td>
+                    <td width="50">
                         <a href="{{ path('admin_category_delete', { 'id':row.id }) }}" class="btn"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
@@ -29,8 +33,4 @@
             </tbody>
         </table>
     </div>
-    <div class="row">
-        <a href="{{ path('admin_category_new') }}" class="btn btn-primary">Add category</a>
-    </div>
-
 {% endblock %}

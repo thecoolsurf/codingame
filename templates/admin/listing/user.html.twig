@@ -5,7 +5,11 @@
 {% block title %}Admin - listing user{% endblock %}
 
 {% block body %}
-    <div class="col-xs-12">
+    <div class="row" style="display: flow-root">
+        <p><a href="{{ path('admin_user_new') }}" class="btn btn-primary">Add user</a></p>
+        <span style="float:right">{{ 'Total: '~rows|length }}</span>
+    </div>
+    <div class="row">
         <table class="table" width="100%">
             <tbody>
                 <tr>
@@ -13,6 +17,8 @@
                     <th>Firstname</th>
                     <th>Email</th>
                     <th>Phone</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 {% for row in rows %}
                 <tr id="{{ 'row'~row.id }}">
@@ -20,8 +26,11 @@
                     <td>{{ row.firstname }}</td>
                     <td>{{ row.email }}</td>
                     <td>{{ row.phone }}</td>
-                    <td>
+                    <td width="50">
                         <a href="{{ path('admin_user_edit', { 'id':row.id }) }}" class="btn"><i class="fa fa-pencil"></i></a>
+                    </td>
+                    <td width="50">
+                        <a href="{{ path('admin_user_delete', { 'id':row.id }) }}" class="btn"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
                 {% endfor %}

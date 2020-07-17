@@ -5,49 +5,107 @@ namespace App\Controller\Admin;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use App\Repository\Practice\QuestionRepository as QuestionRep;
+use App\Form\QuestionFormType;
+use App\Entity\Question;
 
 class QuestionController extends AbstractController
 {
     
+    private $question_rep;
+    private $question_edit;
+ 
+    public function __construct(QuestionRep $question_rep, QuestionFormType $question_form)
+    {
+        $this->question_rep = $question_rep;
+        $this->question_edit = $question_form;
+    }
+    
+    /* ********************************************************************** */
+    
     /**
+     * LISTING
      * @Method({"GET"})
      * @Route("/admin/question/listing", name="admin_question_listing")
      */
-    public function listing(QuestionRep $question_rep)
+    public function listing()
     {
-        $rows = $question_rep->findAll();
+        $rows = $this->question_rep->findAll();
         return $this->render('admin/listing/question.html.twig', [
-            'url' => 'question',
+            'url' => 'admin - listing',
             'rows' => $rows,
         ]);
     }
     
     /**
+     * EDIT
      * @Method({"GET"})
      * @Route("/admin/question/edit/{id}", name="admin_question_edit")
      */
-    public function edit(QuestionRep $question_rep, $id)
+    public function edit(Request $request, $id)
     {
-        $question = $question_rep->find($id);
-        $form = $this->createForm(\App\Form\QuestionFormType::class, $question);
-        return $this->render('admin/form/question.html.twig', [
-            'url' => 'admin - edit',
-            'form_edit' => $form->createView(),
-        ]);
+        $question = $this->question_rep->find($id);
+        $form = $this->createForm(QuestionFormType::class, $question);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()):
+            $rows = $this->question_rep->findAll();
+            $datas = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($datas);
+            $em->flush();
+            return $this->render('admin/listing/question.html.twig', [
+                'url' => 'admin - listing',
+                'rows' => $rows,
+            ]);
+        else:
+            return $this->render('admin/form/question.html.twig', [
+                'url' => 'admin - edit',
+                'form_edit' => $form->createView(),
+            ]);
+        endif;
     }
     
     /**
+     * NEW
+     * @Method({"GET"})
+     * @Route("/admin/question/new", name="admin_question_new")
+     */
+    public function new(Request $request)
+    {
+        $question = new Question();
+        $form = $this->createForm(QuestionFormType::class, $question);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()):
+            $rows = $this->question_rep->findAll();
+            $datas = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($datas);
+            $em->flush();
+            return $this->redirectToRoute('admin_question_listing',[
+                'url' => 'admin - listing',
+                'rows' => $rows,
+            ]);
+        else:
+            return $this->render('admin/form/question.html.twig', [
+                'url' => 'admin - new',
+                'form_edit' => $form->createView(),
+            ]);
+        endif;
+    }
+    
+    /**
+     * DELETE
      * @Method({"GET"})
      * @Route("/admin/question/delete/{id}", name="admin_question_delete")
      */
-    public function delete(QuestionRep $question_rep, $id)
+    public function delete($id)
     {
-        $rows = $question_rep->find($id);
-        return $this->render('admin/listing/question.html.twig', [
-            'url' => 'admin - delete',
-            'rows' => $rows,
-        ]);
+        $question = $this->question_rep->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($question);
+        $em->flush();
+        return $this->redirectToRoute('admin_question_listing');
     }
     
 }
