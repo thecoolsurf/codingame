@@ -1,15 +1,18 @@
 <?php
 
-namespace App\Controller\Home;
+namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Repository\Home\BodyRepository as BodyRep;
 use App\Repository\Practice\CategoryRepository as CategoryRep;
 use App\Repository\Practice\QuestionRepository as QuestionRep;
 
-class IndexController extends AbstractController
+
+class SecurityController extends AbstractController
 {
 
     private $body_rep;
@@ -24,33 +27,32 @@ class IndexController extends AbstractController
     }
     
     /**
-     * @Route("/", name="home")
+     * @Route("/login", name="login")
      */
-    public function home(Request $request)
+    public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
         $body = $this->body_rep->findBodyBySlug($request)[0];
         $navigation = $this->category_rep->getNavigationCategories($this->category_rep, $this->question_rep);
-        return $this->render('public/home/index.html.twig', [
-            'url' => 'home',
+        if ($this->getUser()):
+            return $this->redirectToRoute('admin_user_listing');
+        endif;
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+        return $this->render('security/login.html.twig', [
+            'url' => 'Login',
             'body' => $body,
             'categories' => $navigation[0],
             'questions' => $navigation[1],
+            'last_username' => $lastUsername,
+            'error' => $error,
         ]);
     }
 
     /**
-     * @Route("/about", name="about")
+     * @Route("/logout", name="logout")
      */
-    public function about(Request $request)
+    public function logout()
     {
-        $body = $this->bodyRep->findBodyBySlug($request)[0];
-        $navigation = $this->category_rep->getNavigationCategories($this->category_rep, $this->question_rep);
-        return $this->render('public/home/index.html.twig', [
-            'url' => 'home',
-            'body' => $body,
-            'categories' => $navigation[0],
-            'questions' => $navigation[1],
-        ]);
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
-
 }

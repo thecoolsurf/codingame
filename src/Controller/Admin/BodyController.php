@@ -32,6 +32,9 @@ class BodyController extends AbstractController
      */
     public function listing()
     {
+        if (!$this->getUser()):
+            return $this->redirectToRoute('login');
+        endif;
         $body = $this->body_rep->findAll();
         return $this->render('admin/listing/body.html.twig', [
             'url' => 'admin - listing',
@@ -46,6 +49,9 @@ class BodyController extends AbstractController
      */
     public function edit(Request $request, $id)
     {
+        if (!$this->getUser()):
+            return $this->redirectToRoute('login');
+        endif;
         $body = $this->body_rep->find($id);
         $form = $this->createForm(BodyFormType::class, $body);
         $form->handleRequest($request);
@@ -74,6 +80,9 @@ class BodyController extends AbstractController
      */
     public function new(Request $request)
     {
+        if (!$this->getUser()):
+            return $this->redirectToRoute('login');
+        endif;
         $body = new Body();
         $form = $this->createForm(BodyFormType::class, $body);
         $form->handleRequest($request);

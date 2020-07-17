@@ -23,8 +23,8 @@ class QuestionFormType extends AbstractType
                 'query_builder'=>function(\Doctrine\ORM\EntityRepository $er){
                      return $er->createQueryBuilder('c')->orderBy('c.title','ASC');
                 },
-                'choice_label'=>'title',
-                 'attr' => ['class' => 'form-row'],
+                'choice_label' => 'title',
+                'attr' => ['class' => 'form-row'],
             ])
             ->add('title', TextType::class, [
                 'constraints'=>new NotBlank(['message'=>'Complete this field.']),
@@ -32,7 +32,7 @@ class QuestionFormType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'constraints'=>new NotBlank(['message'=>'Complete this field.']),
-                 'attr' => ['class' => 'form-row'],
+                'attr' => ['class' => 'form-row'],
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary'],
