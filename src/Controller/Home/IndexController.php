@@ -43,7 +43,7 @@ class IndexController extends AbstractController
      */
     public function about(Request $request)
     {
-        $body = $this->bodyRep->findBodyBySlug($request)[0];
+        $body = $this->body_rep->findBodyBySlug($request)[0];
         $navigation = $this->category_rep->getNavigationCategories($this->category_rep, $this->question_rep);
         return $this->render('public/home/index.html.twig', [
             'url' => 'home',

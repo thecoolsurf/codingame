@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,6 +28,7 @@ class SecurityController extends AbstractController
     }
     
     /**
+     * @Method({"POST"})
      * @Route("/login", name="login")
      */
     public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
@@ -49,6 +51,7 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Method({"GET"})
      * @Route("/logout", name="logout")
      */
     public function logout()

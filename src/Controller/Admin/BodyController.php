@@ -32,9 +32,7 @@ class BodyController extends AbstractController
      */
     public function listing()
     {
-        if (!$this->getUser()):
-            return $this->redirectToRoute('login');
-        endif;
+//        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $body = $this->body_rep->findAll();
         return $this->render('admin/listing/body.html.twig', [
             'url' => 'admin - listing',
