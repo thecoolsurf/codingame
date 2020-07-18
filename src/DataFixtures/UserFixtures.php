@@ -26,10 +26,11 @@ class UserFixtures extends Fixture
         for ($i=1; $i<=10; $i++):
             $item = $twig->numberToStringList($i);
             $user = new User();
+            $roles = $i==1 ? 'ROLE_ADMIN' : 'ROLE_USER';
             $pass = $this->passwordEncoder->encodePassword($user,'pass'.$twig->numberToStringList($i));
             $user->setUsername('user'.$item);
             $user->setPassword($pass);
-            $user->setRoles(['ROLE_USER']);
+            $user->setRoles([$roles]);
             $user->setLastname(strtoupper($this->faker->lastname));
             $user->setFirstname(ucfirst($this->faker->firstname));
             $user->setEmail($this->faker->email);
