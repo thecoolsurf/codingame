@@ -3,9 +3,15 @@
         <a class="nav-link" href="{{ '/' }}">{{ 'home'|capitalize }}</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ 'about' }}">{{ 'about'|capitalize }}</a>
+        <a class="nav-link" href="{{ path('about') }}">{{ 'about'|capitalize }}</a>
     </li>
+    {% if is_granted('ROLE_USER') %}
     <li class="nav-item">
-        <a class="nav-link" href="{{ 'login' }}">{{ 'login'|capitalize }}</a>
+        <a class="nav-link" href="{{ path('logout') }}">{{ 'logout'|capitalize }}</a>
     </li>
+    {%  else %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('login') }}">{{ 'login'|capitalize }}</a>
+    </li>
+    {% endif %}
 </ul>
