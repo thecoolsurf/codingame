@@ -1,4 +1,5 @@
 <?php
+/* src/DataFixtures/ResponseFixtures.php */
 
 namespace App\DataFixtures;
 
@@ -9,6 +10,6 @@ class ResponseFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $manager->flush();
+//        $manager->flush();
     }
 }

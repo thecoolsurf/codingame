@@ -20,11 +20,6 @@ class Body
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $slug;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $title;
 
     /**
@@ -32,21 +27,15 @@ class Body
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=page::class, inversedBy="bodies")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $page;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
     }
 
     public function getTitle(): ?string
@@ -72,4 +61,17 @@ class Body
 
         return $this;
     }
+
+    public function getPage(): ?page
+    {
+        return $this->page;
+    }
+
+    public function setPage(?page $page): self
+    {
+        $this->page = $page;
+
+        return $this;
+    }
+    
 }

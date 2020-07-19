@@ -1,6 +1,6 @@
 {% if 'admin' not in app.request.attributes.get('_route') %}
 <div class="row">
-    {% if url == 'home' %}
+    {% if app.request.attributes.get('_route') == 'home' %}
         <div class="col-3">
             <h1>{{ body.title }}</h1>
             <p>{{ body.description |nl2br }}</p>
