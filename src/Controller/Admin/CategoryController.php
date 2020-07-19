@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,6 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\Practice\CategoryRepository as CategoryRep;
 use App\Form\CategoryFormType;
 use App\Entity\Category;
+
+/**
+ * Require ROLE_ADMIN for *every* controller method in this class.
+ * @IsGranted("ROLE_ADMIN")
+ */
 
 class CategoryController extends AbstractController
 {

@@ -2,13 +2,18 @@
 
 namespace App\Controller\Admin;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\Practice\QuestionRepository as QuestionRep;
 use App\Form\QuestionFormType;
 use App\Entity\Question;
+
+/**
+ * Require ROLE_ADMIN for *every* controller method in this class.
+ * @IsGranted("ROLE_ADMIN")
+ */
 
 class QuestionController extends AbstractController
 {
@@ -26,7 +31,7 @@ class QuestionController extends AbstractController
     
     /**
      * LISTING
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/question/listing", name="admin_question_listing")
      */
     public function listing()
@@ -40,7 +45,7 @@ class QuestionController extends AbstractController
     
     /**
      * EDIT
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/question/edit/{id}", name="admin_question_edit")
      */
     public function edit(Request $request, $id)
@@ -68,7 +73,7 @@ class QuestionController extends AbstractController
     
     /**
      * NEW
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/question/new", name="admin_question_new")
      */
     public function new(Request $request)
@@ -96,7 +101,7 @@ class QuestionController extends AbstractController
     
     /**
      * DELETE
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/question/delete/{id}", name="admin_question_delete")
      */
     public function delete($id)

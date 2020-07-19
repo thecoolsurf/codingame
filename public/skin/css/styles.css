@@ -100,6 +100,9 @@ button[name="friend-delete"]:hover span {
     border: 1px solid #CECECE;
     border-radius: 0px;
 }
+#textarea {
+    background-color: #FAF3F3;
+}
 #textarea,
 .textarea,
 textarea.form-control,

@@ -3,13 +3,18 @@
 
 namespace App\Controller\Admin;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\Home\BodyRepository as BodyRep;
 use App\Entity\Body;
 use App\Form\BodyFormType;
+
+/**
+ * Require ROLE_ADMIN for *every* controller method in this class.
+ * @IsGranted("ROLE_ADMIN")
+ */
 
 class BodyController extends AbstractController
 {
@@ -27,12 +32,11 @@ class BodyController extends AbstractController
     
     /**
      * LISTING
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/body/listing", name="admin_body_listing")
      */
     public function listing()
     {
-//        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $body = $this->body_rep->findAll();
         return $this->render('admin/listing/body.html.twig', [
             'url' => 'admin - listing',
@@ -42,7 +46,7 @@ class BodyController extends AbstractController
     
     /**
      * EDIT
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/body/edit/{id}", name="admin_body_edit")
      */
     public function edit(Request $request, $id)
@@ -73,7 +77,7 @@ class BodyController extends AbstractController
     
     /**
      * NEW
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/body/new", name="admin_body_new")
      */
     public function new(Request $request)
@@ -104,7 +108,7 @@ class BodyController extends AbstractController
     
     /**
      * DELETE
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/body/delete/{id}", name="admin_body_delete")
      */
     public function delete($id)

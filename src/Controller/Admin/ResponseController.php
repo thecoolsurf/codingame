@@ -2,13 +2,18 @@
 
 namespace App\Controller\Admin;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\Practice\ResponseRepository as ResponseRep;
 use App\Form\ResponseFormType;
 use App\Entity\Response;
+
+/**
+ * Require ROLE_ADMIN for *every* controller method in this class.
+ * @IsGranted("ROLE_ADMIN")
+ */
 
 class ResponseController extends AbstractController
 {
@@ -26,7 +31,7 @@ class ResponseController extends AbstractController
     
     /**
      * LISTING
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/response/listing", name="admin_response_listing")
      */
     public function listing()
@@ -40,7 +45,7 @@ class ResponseController extends AbstractController
     
     /**
      * EDIT
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/response/edit/{id}", name="admin_response_edit")
      */
     public function edit(Request $request, $id)
@@ -68,7 +73,7 @@ class ResponseController extends AbstractController
     
     /**
      * NEW
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/response/new", name="admin_response_new")
      */
     public function new(Request $request)
@@ -96,7 +101,7 @@ class ResponseController extends AbstractController
     
     /**
      * DELETE
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/response/delete/{id}", name="admin_response_delete")
      */
     public function delete($id)

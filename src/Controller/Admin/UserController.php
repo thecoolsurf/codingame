@@ -2,13 +2,18 @@
 
 namespace App\Controller\Admin;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\UserRepository as UserRep;
 use App\Form\UserFormType;
 use App\Entity\User;
+
+/**
+ * Require ROLE_ADMIN for *every* controller method in this class.
+ * @IsGranted("ROLE_ADMIN")
+ */
 
 class UserController extends AbstractController
 {
@@ -26,7 +31,7 @@ class UserController extends AbstractController
     
     /**
      * LISTING
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/user/listing", name="admin_user_listing")
      */
     public function listing()
@@ -40,7 +45,7 @@ class UserController extends AbstractController
     
     /**
      * EDIT
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/user/edit/{id}", name="admin_user_edit")
      */
     public function edit(Request $request, $id)
@@ -68,7 +73,7 @@ class UserController extends AbstractController
     
     /**
      * NEW
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/user/new", name="admin_user_new")
      */
     public function new(Request $request)
@@ -96,7 +101,7 @@ class UserController extends AbstractController
     
     /**
      * DELETE
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/user/delete/{id}", name="admin_user_delete")
      */
     public function delete($id)
