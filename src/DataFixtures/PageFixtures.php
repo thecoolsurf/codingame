@@ -28,7 +28,7 @@ class PageFixtures extends Fixture
             $em->persist($page);
             // body
             $body = new Body();
-            $body->getPage($page);
+            $body->setPage($page);
             $body->setTitle(ucfirst('H2 tag for title '.$slug));
             $body->setDescription($text[$slug]);
             $em->persist($body);
