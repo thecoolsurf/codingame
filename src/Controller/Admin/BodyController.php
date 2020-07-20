@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\Admin\EntitiesRepository as EntitiesRep;
 use App\Repository\Home\BodyRepository as BodyRep;
 use App\Entity\Body;
 use App\Form\BodyFormType;
@@ -31,13 +32,26 @@ class BodyController extends AbstractController
     /* ********************************************************************** */
     
     /**
+     * ENTITIES
+     * @Route({"GET"})
+     * @Route("/src", name="admin_entities")
+     */
+    public function getEntities()
+    {
+        $finder = new EntitiesRep();
+        $entities = $finder->getEntities();
+        sort($entities);
+        return $entities;
+    }
+    
+    /**
      * LISTING
      * @Route({"GET"})
      * @Route("/admin/body/listing", name="admin_body_listing")
      */
     public function listing()
     {
-        $entities = 
+        $entities = $this->getEntities();
         $body = $this->body_rep->findAll();
         return $this->render('admin/listing/body.html.twig', [
             'url' => 'admin - listing',
