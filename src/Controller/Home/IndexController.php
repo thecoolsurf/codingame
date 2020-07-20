@@ -29,11 +29,11 @@ class IndexController extends AbstractController
      */
     public function home(Request $request)
     {
-        $body = $this->body_rep->findBodyBySlug($request)[0];
+        $bodies = $this->body_rep->findBodyBySlug($request);
         $navigation = $this->category_rep->getNavigationCategories($this->category_rep, $this->question_rep);
         return $this->render('public/home/index.html.twig', [
             'url' => 'home',
-            'body' => $body,
+            'bodies' => $bodies,
             'categories' => $navigation[0],
             'questions' => $navigation[1],
         ]);
@@ -44,11 +44,11 @@ class IndexController extends AbstractController
      */
     public function about(Request $request)
     {
-        $body = $this->body_rep->findBodyBySlug($request)[0];
+        $bodies = $this->body_rep->findBodyBySlug($request)[0];
         $navigation = $this->category_rep->getNavigationCategories($this->category_rep, $this->question_rep);
         return $this->render('public/home/index.html.twig', [
             'url' => 'home',
-            'body' => $body,
+            'bodies' => $bodies,
             'categories' => $navigation[0],
             'questions' => $navigation[1],
         ]);

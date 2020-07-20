@@ -22,7 +22,7 @@ class Page
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private $h1;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -44,14 +44,14 @@ class Page
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getH1(): ?string
     {
-        return $this->title;
+        return $this->h1;
     }
 
-    public function setTitle(string $title): self
+    public function setH1(string $h1): self
     {
-        $this->title = $title;
+        $this->h1 = $h1;
 
         return $this;
     }

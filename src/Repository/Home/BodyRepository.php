@@ -23,13 +23,18 @@ class BodyRepository extends ServiceEntityRepository
     public function findBodyBySlug(Request $request)
     {
         $slug = $request->attributes->get('_route');
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.slug = :slug')
+        $result = $this->createQueryBuilder('b')
+            ->select('
+                b.h2 AS h2, b.paragraphe AS paragraphe,
+                p.h1, p.slug
+            ')
+            ->leftJoin('b.page', 'p')
+            ->where('p.slug = :slug')
             ->setParameter('slug', $slug)
             ->orderBy('b.id', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getArrayResult();
+        return $result;
     }
 
 }

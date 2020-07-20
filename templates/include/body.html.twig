@@ -1,15 +1,21 @@
 {% if 'admin' not in app.request.attributes.get('_route') %}
 <div class="row">
-    {% if app.request.attributes.get('_route') == 'home' %}
-        <div class="col-3">
-            <h1>{{ body.title }}</h1>
-            <p>{{ body.description |nl2br }}</p>
-        </div>
-    {% else %}
+    {{ dump(bodies) }}
+    {% if bodies|length > 1 %}
         <div class="col-12">
-            <h1>{{ body.title }}</h1>
-            <p>{{ body.description |nl2br }}</p>
+            <h1>{{ bodies[0]['h1'] }}</h1>
         </div>
-    {% endif %}
+        {% for body in bodies %}
+        <div class="col-3">
+            <div class="fa fa-code"></div>
+            <h2>{{ body['h2'] }}</h2>
+            <p>{{ body['paragraphe'] |nl2br }}</p>
+        </div>
+        {%  endfor %}
+    {%  else %}
+        <h1>{{ bodies['h1'] }}</h1>
+        <h2>{{ bodies['h2'] }}</h2>
+        <p>{{ bodies['paragraphe'] |nl2br }}</p>
+    {%  endif %}
 </div>
 {% endif %}

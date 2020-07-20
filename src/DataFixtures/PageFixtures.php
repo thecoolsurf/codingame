@@ -23,13 +23,13 @@ class PageFixtures extends Fixture
         foreach ($menus as $slug):
             // page
             $page = new Page();
-            $page->setTitle(ucfirst($slug));
+            $page->setH1(ucfirst($slug));
             $page->setSlug($slug);
             $em->persist($page);
             // body
             $body = new Body();
             $body->setPage($page);
-            $body->setTitle(ucfirst('H2 tag for title '.$slug));
+            $body->setH2(ucfirst('H2 tag for title '.$slug));
             $body->setDescription($text[$slug]);
             $em->persist($body);
         endforeach;
