@@ -13,17 +13,15 @@
         <table class="table" width="100%">
             <tbody>
                 <tr>
-                    <th>Title</th>
-                    <th>Slug</th>
-                    <th>description</th>
+                    <th>H2</th>
+                    <th>Paragraph</th>
                     <th></th>
                     <th></th>
                 </tr>
                 {% for row in rows %}
                 <tr id="{{ 'row'~row.id }}">
-                    <td>{{ row.title }}</td>
-                    <td>{{ row.slug }}</td>
-                    <td>{{ row.description }}</td>
+                    <td>{{ row.h2 }}</td>
+                    <td>{{ row.paragraph }}</td>
                     <td width="50">
                         <a href="{{ path('admin_body_edit', { 'id':row.id }) }}" class="btn"><i class="fa fa-pencil"></i></a>
                     </td>

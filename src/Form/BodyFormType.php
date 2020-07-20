@@ -17,15 +17,15 @@ class BodyFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('slug', TextType::class, [
-                'constraints'=>new NotBlank(['message'=>'Complete this field.']),
-                 'attr' => ['class' => 'form-row'],
-            ])
-            ->add('title', TextType::class, [
+            ->add('h2', TextType::class, [
                 'constraints'=>[new NotBlank(['message'=>'Complete this field.'])],
                  'attr' => ['class' => 'form-row'],
             ])
-            ->add('description', TextareaType::class, [
+            ->add('icon', TextType::class, [
+                'constraints'=>[new NotBlank(['message'=>'Complete this field.'])],
+                 'attr' => ['class' => 'form-row'],
+            ])
+            ->add('paragraph', TextareaType::class, [
                  'attr' => ['class' => 'form-row'],
             ])
             ->add('submit', SubmitType::class, [

@@ -4,7 +4,7 @@
         <div class="col-12">
             <h1>{{ bodies['h1'] }}</h1>
             <h2>{{ bodies['h2'] }}</h2>
-            <p>{{ bodies['paragraphe'] |nl2br }}</p>
+            <p>{{ bodies['paragraph'] |nl2br }}</p>
         </div>
     {%  else %}
         <div class="col-12">
@@ -14,7 +14,7 @@
         <div class="col-3">
             <div class="{{ body['icon']}}"></div>
             <h2>{{ body['h2'] }}</h2>
-            <p>{{ body['paragraphe'] |nl2br }}</p>
+            <p>{{ body['paragraph'] |nl2br }}</p>
         </div>
         {%  endfor %}
     {%  endif %}

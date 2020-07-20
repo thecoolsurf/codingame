@@ -26,7 +26,7 @@ class Body
     /**
      * @ORM\Column(type="text")
      */
-    private $paragraphe;
+    private $paragraph;
 
     /**
      * @ORM\ManyToOne(targetEntity=page::class, inversedBy="bodies")
@@ -58,14 +58,14 @@ class Body
         return $this;
     }
 
-    public function getParagraphe(): ?string
+    public function getParagraph(): ?string
     {
-        return $this->paragraphe;
+        return $this->paragraph;
     }
 
-    public function setParagraphe(string $paragraphe): self
+    public function setParagraph(string $paragraph): self
     {
-        $this->paragraphe = $paragraphe;
+        $this->paragraph = $paragraph;
 
         return $this;
     }

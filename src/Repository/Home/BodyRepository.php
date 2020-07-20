@@ -25,7 +25,7 @@ class BodyRepository extends ServiceEntityRepository
         $slug = $request->attributes->get('_route');
         $result = $this->createQueryBuilder('b')
             ->select('
-                b.h2 AS h2, b.paragraphe AS paragraphe, b.icon AS icon,
+                b.h2 AS h2, b.paragraph AS paragraph, b.icon AS icon,
                 p.h1, p.slug
             ')
             ->leftJoin('b.page', 'p')

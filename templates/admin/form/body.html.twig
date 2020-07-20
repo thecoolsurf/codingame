@@ -8,13 +8,14 @@
     <div class="row">
         {{form_start(form_edit)}}
         <p class="form-group">
-            {{form_row(form_edit.title)}}
+            {{form_row(form_edit.h2)}}
         </p>
         <p class="form-group">
-            {{form_row(form_edit.slug)}}
+            {{form_row(form_edit.icon)}}
+            <span class="{{form_row(form_edit.icon)}}"></span>
         </p>
         <p class="form-group">
-            {{form_row(form_edit.description)}}
+            {{form_row(form_edit.paragraph)}}
         </p>
         <p class="form-group">
             {{form_row(form_edit.submit)}}
