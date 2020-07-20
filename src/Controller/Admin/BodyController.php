@@ -20,29 +20,18 @@ use App\Form\BodyFormType;
 class BodyController extends AbstractController
 {
     
+    private $entities_rep;
     private $body_rep;
     private $body_edit;
  
-    public function __construct(BodyRep $body_rep, BodyFormType $body_form)
+    public function __construct(EntitiesRep $entities_rep, BodyRep $body_rep, BodyFormType $body_form)
     {
+        $this->entities_rep = $entities_rep;
         $this->body_rep = $body_rep;
         $this->body_edit = $body_form;
     }
     
     /* ********************************************************************** */
-    
-    /**
-     * ENTITIES
-     * @Route({"GET"})
-     * @Route("/src", name="admin_entities")
-     */
-    public function getEntities()
-    {
-        $finder = new EntitiesRep();
-        $entities = $finder->getEntities();
-        sort($entities);
-        return $entities;
-    }
     
     /**
      * LISTING
@@ -51,7 +40,7 @@ class BodyController extends AbstractController
      */
     public function listing()
     {
-        $entities = $this->getEntities();
+        $entities = $this->entities_rep->getEntities();
         $body = $this->body_rep->findAll();
         return $this->render('admin/listing/body.html.twig', [
             'url' => 'admin - listing',
@@ -67,9 +56,7 @@ class BodyController extends AbstractController
      */
     public function edit(Request $request, $id)
     {
-        if (!$this->getUser()):
-            return $this->redirectToRoute('login');
-        endif;
+        $entities = $this->entities_rep->getEntities();
         $body = $this->body_rep->find($id);
         $form = $this->createForm(BodyFormType::class, $body);
         $form->handleRequest($request);
@@ -81,11 +68,13 @@ class BodyController extends AbstractController
             $em->flush();
             return $this->render('admin/listing/body.html.twig', [
                 'url' => 'admin - listing',
+                'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/body.html.twig', [
                 'url' => 'admin - edit',
+                'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
         endif;
@@ -98,9 +87,7 @@ class BodyController extends AbstractController
      */
     public function new(Request $request)
     {
-        if (!$this->getUser()):
-            return $this->redirectToRoute('login');
-        endif;
+        $entities = $this->entities_rep->getEntities();
         $body = new Body();
         $form = $this->createForm(BodyFormType::class, $body);
         $form->handleRequest($request);
@@ -112,11 +99,13 @@ class BodyController extends AbstractController
             $em->flush();
             return $this->redirectToRoute('admin_body_listing',[
                 'url' => 'admin - listing',
+                'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/body.html.twig', [
                 'url' => 'admin - new',
+                'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
         endif;
