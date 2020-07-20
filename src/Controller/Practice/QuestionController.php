@@ -24,7 +24,7 @@ class QuestionController extends AbstractController
      */
     public function question(BodyRep $bodyRep, CategoryRep $category_rep, QuestionRep $question_rep, ResponseRep $response_rep, Request $request, $slug, $id)
     {
-        $body = $bodyRep->findBodyBySlug($request)[0];
+        $bodies = $bodyRep->findBodyBySlug($request)[0];
         $navigation = $category_rep->getNavigationCategories($category_rep, $question_rep);
         $question = $question_rep->find($id);
         // response
@@ -48,7 +48,7 @@ class QuestionController extends AbstractController
         return $this->render('public/practice/'.$slug.'/question.html.twig', [
             'url' => 'practice',
             'slug' => $slug,
-            'body' => $body,
+            'bodies' => $bodies,
             'categories' => $navigation[0],
             'questions' => $navigation[1],
             'question' => $question,

@@ -1,5 +1,5 @@
 <?php
-/* src/Controller/Admin/BodyController.php */
+/* src/Controller/Admin/PageController.php */
 
 namespace App\Controller\Admin;
 
@@ -7,25 +7,25 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use App\Repository\Home\BodyRepository as BodyRep;
-use App\Entity\Body;
-use App\Form\BodyFormType;
+use App\Repository\Home\PageRepository as PageRep;
+use App\Entity\Page;
+use App\Form\PageFormType;
 
 /**
  * Require ROLE_ADMIN for *every* controller method in this class.
  * @IsGranted("ROLE_ADMIN")
  */
 
-class BodyController extends AbstractController
+class PageController extends AbstractController
 {
     
-    private $body_rep;
-    private $body_edit;
+    private $page_rep;
+    private $page_edit;
  
-    public function __construct(BodyRep $body_rep, BodyFormType $body_form)
+    public function __construct(PageRep $page_rep, PageFormType $page_form)
     {
-        $this->body_rep = $body_rep;
-        $this->body_edit = $body_form;
+        $this->page_rep = $page_rep;
+        $this->page_edit = $page_form;
     }
     
     /* ********************************************************************** */
@@ -33,44 +33,42 @@ class BodyController extends AbstractController
     /**
      * LISTING
      * @Route({"GET"})
-     * @Route("/admin/body/listing", name="admin_body_listing")
+     * @Route("/admin/page/listing", name="admin_page_listing")
      */
     public function listing()
     {
-        $entities = 
-        $body = $this->body_rep->findAll();
-        return $this->render('admin/listing/body.html.twig', [
+        $page = $this->page_rep->findAll();
+        return $this->render('admin/listing/page.html.twig', [
             'url' => 'admin - listing',
-            'entities' => $entities,
-            'rows' => $body,
+            'rows' => $page,
         ]);
     }
     
     /**
      * EDIT
      * @Route({"GET"})
-     * @Route("/admin/body/edit/{id}", name="admin_body_edit")
+     * @Route("/admin/page/edit/{id}", name="admin_page_edit")
      */
     public function edit(Request $request, $id)
     {
         if (!$this->getUser()):
             return $this->redirectToRoute('login');
         endif;
-        $body = $this->body_rep->find($id);
-        $form = $this->createForm(BodyFormType::class, $body);
+        $page = $this->page_rep->find($id);
+        $form = $this->createForm(PageFormType::class, $page);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()):
-            $rows = $this->body_rep->findAll();
+            $rows = $this->page_rep->findAll();
             $datas = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($datas);
             $em->flush();
-            return $this->render('admin/listing/body.html.twig', [
+            return $this->render('admin/listing/page.html.twig', [
                 'url' => 'admin - listing',
                 'rows' => $rows,
             ]);
         else:
-            return $this->render('admin/form/body.html.twig', [
+            return $this->render('admin/form/page.html.twig', [
                 'url' => 'admin - edit',
                 'form_edit' => $form->createView(),
             ]);
@@ -80,28 +78,28 @@ class BodyController extends AbstractController
     /**
      * NEW
      * @Route({"GET"})
-     * @Route("/admin/body/new", name="admin_body_new")
+     * @Route("/admin/page/new", name="admin_page_new")
      */
     public function new(Request $request)
     {
         if (!$this->getUser()):
             return $this->redirectToRoute('login');
         endif;
-        $body = new Body();
-        $form = $this->createForm(BodyFormType::class, $body);
+        $page = new Page();
+        $form = $this->createForm(PageFormType::class, $page);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()):
-            $rows = $this->body_rep->findAll();
+            $rows = $this->page_rep->findAll();
             $datas = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($datas);
             $em->flush();
-            return $this->redirectToRoute('admin_body_listing',[
+            return $this->redirectToRoute('admin_page_listing',[
                 'url' => 'admin - listing',
                 'rows' => $rows,
             ]);
         else:
-            return $this->render('admin/form/body.html.twig', [
+            return $this->render('admin/form/page.html.twig', [
                 'url' => 'admin - new',
                 'form_edit' => $form->createView(),
             ]);
@@ -111,15 +109,15 @@ class BodyController extends AbstractController
     /**
      * DELETE
      * @Route({"GET"})
-     * @Route("/admin/body/delete/{id}", name="admin_body_delete")
+     * @Route("/admin/page/delete/{id}", name="admin_page_delete")
      */
     public function delete($id)
     {
-        $body = $this->body_rep->find($id);
+        $page = $this->page_rep->find($id);
         $em = $this->getDoctrine()->getManager();
-        $em->remove($body);
+        $em->remove($page);
         $em->flush();
-        return $this->redirectToRoute('admin_body_listing');
+        return $this->redirectToRoute('admin_page_listing');
     }
     
 }

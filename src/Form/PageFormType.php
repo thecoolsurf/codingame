@@ -2,29 +2,25 @@
 
 namespace App\Form;
 
-use App\Entity\Body;
+use App\Entity\Page;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class BodyFormType extends AbstractType
+class PageFormType extends AbstractType
 {
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('h2', TextType::class, [
+            ->add('h1', TextType::class, [
                 'constraints'=>[new NotBlank(['message'=>'Complete this field.'])],
                  'attr' => ['class' => 'form-row'],
             ])
-            ->add('icon', TextType::class, [
-                 'attr' => ['class' => 'form-row'],
-            ])
-            ->add('paragraph', TextareaType::class, [
+            ->add('slug', TextType::class, [
                  'attr' => ['class' => 'form-row'],
             ])
             ->add('submit', SubmitType::class, [
@@ -36,7 +32,7 @@ class BodyFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Body::class,
+            'data_class' => Page::class,
         ]);
     }
     

@@ -1,0 +1,36 @@
+{# templates/admin/listing/body.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - listing question{% endblock %}
+
+{% block body %}
+    <div class="row" style="display: flow-root">
+        <p><a href="{{ path('admin_page_new') }}" class="btn btn-primary">Add slug</a></p>
+        <span style="float:right">{{ 'Total: '~rows|length }}</span>
+    </div>
+    <div class="row">
+        <table class="table" width="100%">
+            <tbody>
+                <tr>
+                    <th>H1</th>
+                    <th>Slug</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {% for row in rows %}
+                <tr id="{{ 'row'~row.id }}">
+                    <td>{{ row.h1 }}</td>
+                    <td>{{ row.slug }}</td>
+                    <td width="50">
+                        <a href="{{ path('admin_page_edit', { 'id':row.id }) }}" class="btn"><i class="fa fa-pencil"></i></a>
+                    </td>
+                    <td width="50">
+                        <a href="{{ path('admin_page_delete', { 'id':row.id }) }}" class="btn"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
