@@ -1,21 +1,22 @@
 {% if 'admin' not in app.request.attributes.get('_route') %}
 <div class="row">
-    {{ dump(bodies) }}
-    {% if bodies|length > 1 %}
+    {% if bodies['h2'] is defined %}
+        <div class="col-12">
+            <h1>{{ bodies['h1'] }}</h1>
+            <h2>{{ bodies['h2'] }}</h2>
+            <p>{{ bodies['paragraphe'] |nl2br }}</p>
+        </div>
+    {%  else %}
         <div class="col-12">
             <h1>{{ bodies[0]['h1'] }}</h1>
         </div>
         {% for body in bodies %}
         <div class="col-3">
-            <div class="fa fa-code"></div>
+            <div class="{{ body['icon']}}"></div>
             <h2>{{ body['h2'] }}</h2>
             <p>{{ body['paragraphe'] |nl2br }}</p>
         </div>
         {%  endfor %}
-    {%  else %}
-        <h1>{{ bodies['h1'] }}</h1>
-        <h2>{{ bodies['h2'] }}</h2>
-        <p>{{ bodies['paragraphe'] |nl2br }}</p>
     {%  endif %}
 </div>
 {% endif %}
