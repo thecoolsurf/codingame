@@ -34,7 +34,7 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
-        $body = $this->body_rep->findBodyBySlug($request)[0];
+        $bodies = $this->body_rep->findBodyBySlug($request)[0];
         $navigation = $this->category_rep->getNavigationCategories($this->category_rep, $this->question_rep);
         if ($this->getUser()):
             return $this->redirectToRoute('admin_user_listing');
@@ -43,7 +43,7 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render('security/login.html.twig', [
             'url' => 'Login',
-            'body' => $body,
+            'bodies' => $bodies,
             'categories' => $navigation[0],
             'questions' => $navigation[1],
             'last_username' => $lastUsername,
