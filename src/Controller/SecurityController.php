@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Repository\Home\BodyRepository as BodyRep;
 use App\Repository\Practice\CategoryRepository as CategoryRep;
-use App\Repository\Practice\QuestionRepository as QuestionRep;
 
 
 class SecurityController extends AbstractController
@@ -19,13 +18,11 @@ class SecurityController extends AbstractController
 
     private $body_rep;
     private $category_rep;
-    private $question_rep;
     
-    public function __construct(BodyRep $body_rep, CategoryRep $category_rep, QuestionRep $question_rep)
+    public function __construct(BodyRep $body_rep, CategoryRep $category_rep)
     {
         $this->body_rep = $body_rep;
         $this->category_rep = $category_rep;
-        $this->question_rep = $question_rep;
     }
     
     /**
@@ -35,7 +32,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
         $bodies = $this->body_rep->findBodyBySlug($request)[0];
-        $navigation = $this->category_rep->getNavigationCategories($this->category_rep, $this->question_rep);
+        $navigation = $this->category_rep->getNavigationCategories();
         if ($this->getUser()):
             return $this->redirectToRoute('admin_user_listing');
         endif;

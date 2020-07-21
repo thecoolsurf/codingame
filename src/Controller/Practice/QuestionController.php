@@ -38,13 +38,13 @@ class QuestionController extends AbstractController
     public function question(Request $request, $slug, $id)
     {
         $bodies = $this->body_rep->findBodyBySlug($request)[0];
-        $navigation = $this->category_rep->getNavigationCategories($this->category_rep, $this->question_rep);
+        $navigation = $this->category_rep->getNavigationCategories();
         $question = $this->question_rep->find($id);
         // response
-        if (array_key_exists(0, $this->response_rep->findBy(['question'=>$id]))):
+        if (array_key_exists(0, $this->response_rep->findBy(['question'=>$question->getId()]))):
             $response = $this->response_rep->findBy(['question'=>$id])[0];
         else:
-            $response = $this->response_rep->findBy(['question'=>$id]);
+            $response = $this->response_rep->findBy(['question'=>$question->getId()]);
         endif;
         // CAUTION: carefull with Datafixture auto increment
         switch ($id):

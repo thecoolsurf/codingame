@@ -7,8 +7,9 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 {% for question in questions[category.id] %}
-                    <a class="dropdown-item" href="{{ '/practice'~'/'~category.slug~'/'~'question-'~question.question_id }}">
-                        {{ 'question-'~question.question_id|capitalize }}
+                    {% set i = loop.index %}
+                    <a class="dropdown-item" href="{{ '/practice'~'/'~category.slug~'/'~'question-'~i }}">
+                        {{ 'question-'~i|capitalize }}
                     </a>
                 {% endfor %}
             </div>
