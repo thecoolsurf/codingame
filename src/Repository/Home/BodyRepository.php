@@ -5,7 +5,6 @@ namespace App\Repository\Home;
 use App\Entity\Body;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\Request;
 
 class BodyRepository extends ServiceEntityRepository
 {
@@ -17,12 +16,11 @@ class BodyRepository extends ServiceEntityRepository
 
     /**
      * 
-     * @param Request $request
-     * @return array objet
+     * @param string $slug
+     * @return object
      */
-    public function findBodyBySlug(Request $request)
+    public function findBodyBySlug($slug)
     {
-        $slug = $request->attributes->get('_route');
         $result = $this->createQueryBuilder('b')
             ->select('
                 b.h2 AS h2, b.paragraph AS paragraph, b.icon AS icon,

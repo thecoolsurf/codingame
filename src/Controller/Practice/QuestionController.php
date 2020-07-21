@@ -35,9 +35,9 @@ class QuestionController extends AbstractController
      * @Method({"GET"})
      * @Route("/practice/{slug}/question-{id}", name="practice")
      */
-    public function question(Request $request, $slug, $id)
+    public function question($slug, $id)
     {
-        $bodies = $this->body_rep->findBodyBySlug($request)[0];
+        $bodies = $this->body_rep->findBodyBySlug('practice');
         $navigation = $this->category_rep->getNavigationCategories();
         $question = $this->question_rep->find($id);
         // response

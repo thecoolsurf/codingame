@@ -4,6 +4,7 @@
 namespace App\Tests\Controller\Home;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Repository\Home\BodyRepository;
 
 class IndexControllerTest extends WebTestCase
 {

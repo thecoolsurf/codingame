@@ -5,7 +5,6 @@ namespace App\Controller\Home;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 use App\Repository\Home\BodyRepository as BodyRep;
 use App\Repository\Practice\CategoryRepository as CategoryRep;
 
@@ -24,9 +23,9 @@ class IndexController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home(Request $request)
+    public function home()
     {
-        $bodies = $this->body_rep->findBodyBySlug($request);
+        $bodies = $this->body_rep->findBodyBySlug('home');
         $navigation = $this->category_rep->getNavigationCategories();
         return $this->render('public/home/index.html.twig', [
             'url' => 'home',
@@ -39,9 +38,9 @@ class IndexController extends AbstractController
     /**
      * @Route("/about", name="about")
      */
-    public function about(Request $request)
+    public function about()
     {
-        $bodies = $this->body_rep->findBodyBySlug($request)[0];
+        $bodies = $this->body_rep->findBodyBySlug('about');
         $navigation = $this->category_rep->getNavigationCategories();
         return $this->render('public/home/index.html.twig', [
             'url' => 'home',

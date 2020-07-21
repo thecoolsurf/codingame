@@ -6,7 +6,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Repository\Home\BodyRepository as BodyRep;
@@ -29,9 +28,9 @@ class SecurityController extends AbstractController
      * @Method({"POST"})
      * @Route("/login", name="login")
      */
-    public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        $bodies = $this->body_rep->findBodyBySlug($request)[0];
+        $bodies = $this->body_rep->findBodyBySlug('login');
         $navigation = $this->category_rep->getNavigationCategories();
         if ($this->getUser()):
             return $this->redirectToRoute('admin_user_listing');
