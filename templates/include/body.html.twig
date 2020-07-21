@@ -1,10 +1,10 @@
 {% if 'admin' not in app.request.attributes.get('_route') %}
 <div id="body" class="row">
-    {% if bodies['h2'] is defined %}
+    {% if bodies|length == 1 %}
         <div class="col-12">
-            <h1>{{ bodies['h1'] }}</h1>
-            <h2>{{ bodies['h2'] }}</h2>
-            <p>{{ bodies['paragraph'] |nl2br }}</p>
+            <h1>{{ bodies[0]['h1'] }}</h1>
+            <h2>{{ bodies[0]['h2'] }}</h2>
+            <p>{{ bodies[0]['paragraph'] |nl2br }}</p>
         </div>
     {%  else %}
         <div class="col-12">
