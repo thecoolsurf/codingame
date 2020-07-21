@@ -1,5 +1,5 @@
 <?php
-/* src/Controller/Practice/QuestionController.php */
+// src/Controller/Practice/QuestionController.php
 
 namespace App\Controller\Practice;
 
@@ -17,29 +17,42 @@ use App\Entity\Response as ResponseEntity;
 class QuestionController extends AbstractController
 {
     
+    private $body_rep;
+    private $category_rep;
+    private $question_rep;
+    private $response_rep;
+    
+    public function __construct(BodyRep $body_rep, CategoryRep $category_rep, QuestionRep $question_rep, ResponseRep $response_rep)
+    {
+        $this->body_rep = $body_rep;
+        $this->category_rep = $category_rep;
+        $this->question_rep = $question_rep;
+        $this->response_rep = $response_rep;
+    }
+    
     /**
      * Public display question by ID
      * @Method({"GET"})
      * @Route("/practice/{slug}/question-{id}", name="practice")
      */
-    public function question(BodyRep $bodyRep, CategoryRep $category_rep, QuestionRep $question_rep, ResponseRep $response_rep, Request $request, $slug, $id)
+    public function question(Request $request, $slug, $id)
     {
-        $bodies = $bodyRep->findBodyBySlug($request)[0];
-        $navigation = $category_rep->getNavigationCategories($category_rep, $question_rep);
-        $question = $question_rep->find($id);
+        $bodies = $this->body_rep->findBodyBySlug($request)[0];
+        $navigation = $this->category_rep->getNavigationCategories($this->category_rep, $this->question_rep);
+        $question = $this->question_rep->find($id);
         // response
-        if (array_key_exists(0, $response_rep->findBy(['question'=>$id]))):
-            $response = $response_rep->findBy(['question'=>$id])[0];
+        if (array_key_exists(0, $this->response_rep->findBy(['question'=>$id]))):
+            $response = $this->response_rep->findBy(['question'=>$id])[0];
         else:
-            $response = $response_rep->findBy(['question'=>$id]);
+            $response = $this->response_rep->findBy(['question'=>$id]);
         endif;
         // CAUTION: carefull with Datafixture auto increment
         switch ($id):
             case 3:
-                $datas = $question_rep->getRandomNumeric();
+                $datas = $this->question_rep->getRandomNumeric();
             break;
             case 4:
-                $datas = $question_rep->getPosition(10,20,30,40);
+                $datas = $this->question_rep->getPosition(10,20,30,40);
             break;
             default:
                 $datas = [];
@@ -62,17 +75,17 @@ class QuestionController extends AbstractController
      * @Method({"POST"})
      * @Route("/ajax/question/updateorinsert", name="ajax_question_updateorinsert")
      */
-    public function updateOrInsertCode(Request $request, QuestionRep $question_rep, ResponseRep $response_rep)
+    public function updateOrInsertCode(Request $request)
     {
         $id = $request->request->get('id');
         $code = $request->request->get('code');
         $em = $this->getDoctrine()->getManager();
-        $question = $question_rep->find($id);
+        $question = $this->question_rep->find($id);
         // response
-        if (array_key_exists(0, $response_rep->findBy(['question'=>$id]))):
-            $response = $response_rep->findBy(['question'=>$id])[0];
+        if (array_key_exists(0, $this->response_rep->findBy(['question'=>$id]))):
+            $response = $this->response_rep->findBy(['question'=>$id])[0];
         else:
-            $response = $response_rep->findBy(['question'=>$id]);
+            $response = $this->response_rep->findBy(['question'=>$id]);
         endif;
         if ($response):
             $alert_class = 'alert-warning';

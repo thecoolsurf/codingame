@@ -1,4 +1,5 @@
 <?php
+// src/Controller/Admin/CategoryController.php
 
 namespace App\Controller\Admin;
 

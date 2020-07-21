@@ -1,5 +1,5 @@
 <?php
-/* src/Controller/Admin/PageController.php */
+// src/Controller/Admin/PageController.php
 
 namespace App\Controller\Admin;
 

@@ -1,5 +1,5 @@
 <?php
-/* src/Controller/Home/IndexController.php */
+// src/Controller/Home/IndexController.php
 
 namespace App\Controller\Home;
 
