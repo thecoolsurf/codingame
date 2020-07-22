@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\Admin\EntitiesRepository as EntitiesRep;
 use App\Repository\UserRepository as UserRep;
 use App\Form\UserFormType;
 use App\Entity\User;
@@ -19,11 +20,13 @@ use App\Entity\User;
 class UserController extends AbstractController
 {
     
+    private $entities_rep;
     private $user_rep;
     private $user_edit;
  
-    public function __construct(UserRep $user_rep, UserFormType $user_form)
+    public function __construct(EntitiesRep $entities_rep, UserRep $user_rep, UserFormType $user_form)
     {
+        $this->entities_rep = $entities_rep;
         $this->user_rep = $user_rep;
         $this->user_edit = $user_form;
     }
@@ -41,6 +44,7 @@ class UserController extends AbstractController
         return $this->render('admin/listing/user.html.twig', [
             'url' => 'admin - listing',
             'rows' => $rows,
+            'entities' => $this->entities_rep->getEntities(),
         ]);
     }
     

@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\Admin\EntitiesRepository as EntitiesRep;
 use App\Repository\Practice\QuestionRepository as QuestionRep;
 use App\Form\QuestionFormType;
 use App\Entity\Question;
@@ -22,8 +23,9 @@ class QuestionController extends AbstractController
     private $question_rep;
     private $question_edit;
  
-    public function __construct(QuestionRep $question_rep, QuestionFormType $question_form)
+    public function __construct(EntitiesRep $entities_rep, QuestionRep $question_rep, QuestionFormType $question_form)
     {
+        $this->entities_rep = $entities_rep;
         $this->question_rep = $question_rep;
         $this->question_edit = $question_form;
     }
@@ -37,9 +39,11 @@ class QuestionController extends AbstractController
      */
     public function listing()
     {
+        $entities = $this->entities_rep->getEntities();
         $rows = $this->question_rep->findAll();
         return $this->render('admin/listing/question.html.twig', [
             'url' => 'admin - listing',
+            'entities' => $entities,
             'rows' => $rows,
         ]);
     }
@@ -51,6 +55,7 @@ class QuestionController extends AbstractController
      */
     public function edit(Request $request, $id)
     {
+        $entities = $this->entities_rep->getEntities();
         $question = $this->question_rep->find($id);
         $form = $this->createForm(QuestionFormType::class, $question);
         $form->handleRequest($request);
@@ -62,11 +67,13 @@ class QuestionController extends AbstractController
             $em->flush();
             return $this->render('admin/listing/question.html.twig', [
                 'url' => 'admin - listing',
+                'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/question.html.twig', [
                 'url' => 'admin - edit',
+                'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
         endif;
@@ -79,6 +86,7 @@ class QuestionController extends AbstractController
      */
     public function new(Request $request)
     {
+        $entities = $this->entities_rep->getEntities();
         $question = new Question();
         $form = $this->createForm(QuestionFormType::class, $question);
         $form->handleRequest($request);
@@ -90,11 +98,13 @@ class QuestionController extends AbstractController
             $em->flush();
             return $this->redirectToRoute('admin_question_listing',[
                 'url' => 'admin - listing',
+                'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/question.html.twig', [
                 'url' => 'admin - new',
+                'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
         endif;

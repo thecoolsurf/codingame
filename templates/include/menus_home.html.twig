@@ -1,17 +1,11 @@
+{% set nav = ['home','about','login'] %}
 <ul class="navbar-nav mr-auto">
-    <li class="nav-item active">
-        <a class="nav-link" href="{{ '/' }}">{{ 'home'|capitalize }}</a>
+{%  for item in nav %}
+    {% if item == url %}{% set active = 'nav-item active' %}{%  else %}{% set active = 'nav-item' %}{% endif %}
+    {% if item == 'login' and is_granted('ROLE_USER') %}{% set href = 'logout' %}{% else %}{% set href = item %}{% endif %}
+    {% if item == 'home' %}{% set href = '/' %}{%  else %}{% set href = item %}{% endif %}
+    <li class="{{ active }}">
+        <a class="nav-link" href="{{ href }}">{{ item|capitalize }}</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('about') }}">{{ 'about'|capitalize }}</a>
-    </li>
-    {% if is_granted('ROLE_USER') %}
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('logout') }}">{{ 'logout'|capitalize }}</a>
-    </li>
-    {%  else %}
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('login') }}">{{ 'login'|capitalize }}</a>
-    </li>
-    {% endif %}
+{% endfor %}
 </ul>

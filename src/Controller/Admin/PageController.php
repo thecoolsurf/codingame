@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\Admin\EntitiesRepository as EntitiesRep;
 use App\Repository\Home\PageRepository as PageRep;
 use App\Entity\Page;
 use App\Form\PageFormType;
@@ -19,11 +20,13 @@ use App\Form\PageFormType;
 class PageController extends AbstractController
 {
     
-    private $page_rep;
-    private $page_edit;
+    private $entities_rep;
+    private $category_rep;
+    private $category_edit;
  
-    public function __construct(PageRep $page_rep, PageFormType $page_form)
+    public function __construct(EntitiesRep $entities_rep, PageRep $page_rep, PageFormType $page_form)
     {
+        $this->entities_rep = $entities_rep;
         $this->page_rep = $page_rep;
         $this->page_edit = $page_form;
     }
@@ -37,9 +40,11 @@ class PageController extends AbstractController
      */
     public function listing()
     {
+        $entities = $this->entities_rep->getEntities();
         $page = $this->page_rep->findAll();
         return $this->render('admin/listing/page.html.twig', [
             'url' => 'admin - listing',
+            'entities' => $entities,
             'rows' => $page,
         ]);
     }
@@ -51,9 +56,7 @@ class PageController extends AbstractController
      */
     public function edit(Request $request, $id)
     {
-        if (!$this->getUser()):
-            return $this->redirectToRoute('login');
-        endif;
+        $entities = $this->entities_rep->getEntities();
         $page = $this->page_rep->find($id);
         $form = $this->createForm(PageFormType::class, $page);
         $form->handleRequest($request);
@@ -65,11 +68,13 @@ class PageController extends AbstractController
             $em->flush();
             return $this->render('admin/listing/page.html.twig', [
                 'url' => 'admin - listing',
+                'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/page.html.twig', [
                 'url' => 'admin - edit',
+                'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
         endif;
@@ -82,9 +87,7 @@ class PageController extends AbstractController
      */
     public function new(Request $request)
     {
-        if (!$this->getUser()):
-            return $this->redirectToRoute('login');
-        endif;
+        $entities = $this->entities_rep->getEntities();
         $page = new Page();
         $form = $this->createForm(PageFormType::class, $page);
         $form->handleRequest($request);
@@ -93,14 +96,19 @@ class PageController extends AbstractController
             $datas = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($datas);
-            $em->flush();
+            $em->flush();        if (!$this->getUser()):
+            return $this->redirectToRoute('login');
+        endif;
+
             return $this->redirectToRoute('admin_page_listing',[
                 'url' => 'admin - listing',
+                'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/page.html.twig', [
                 'url' => 'admin - new',
+                'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
         endif;

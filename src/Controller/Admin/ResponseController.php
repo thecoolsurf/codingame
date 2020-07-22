@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\Admin\EntitiesRepository as EntitiesRep;
 use App\Repository\Practice\ResponseRepository as ResponseRep;
 use App\Form\ResponseFormType;
 use App\Entity\Response;
@@ -19,11 +20,13 @@ use App\Entity\Response;
 class ResponseController extends AbstractController
 {
     
+    private $entities_rep;
     private $response_rep;
     private $response_edit;
  
-    public function __construct(ResponseRep $response_rep, ResponseFormType $response_form)
+    public function __construct(EntitiesRep $entities_rep, ResponseRep $response_rep, ResponseFormType $response_form)
     {
+        $this->entities_rep = $entities_rep;
         $this->response_rep = $response_rep;
         $this->response_edit = $response_form;
     }
@@ -37,9 +40,11 @@ class ResponseController extends AbstractController
      */
     public function listing()
     {
+        $entities = $this->entities_rep->getEntities();
         $rows = $this->response_rep->findAll();
         return $this->render('admin/listing/response.html.twig', [
             'url' => 'admin - listing',
+            'entities' => $entities,
             'rows' => $rows,
         ]);
     }
@@ -51,6 +56,7 @@ class ResponseController extends AbstractController
      */
     public function edit(Request $request, $id)
     {
+        $entities = $this->entities_rep->getEntities();
         $response = $this->response_rep->find($id);
         $form = $this->createForm(ResponseFormType::class, $response);
         $form->handleRequest($request);
@@ -62,11 +68,13 @@ class ResponseController extends AbstractController
             $em->flush();
             return $this->render('admin/listing/response.html.twig', [
                 'url' => 'admin - listing',
+                'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/response.html.twig', [
                 'url' => 'admin - edit',
+                'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
         endif;
@@ -79,6 +87,7 @@ class ResponseController extends AbstractController
      */
     public function new(Request $request)
     {
+        $entities = $this->entities_rep->getEntities();
         $response = new Response();
         $form = $this->createForm(ResponseFormType::class, $response);
         $form->handleRequest($request);
@@ -90,11 +99,13 @@ class ResponseController extends AbstractController
             $em->flush();
             return $this->redirectToRoute('admin_response_listing',[
                 'url' => 'admin - listing',
+                'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/response.html.twig', [
                 'url' => 'admin - new',
+                'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
         endif;

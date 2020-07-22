@@ -2,19 +2,19 @@
 <div id="body" class="row">
     {% if bodies|length == 1 %}
         <div class="col-12">
-            <h1>{{ bodies[0]['h1'] }}</h1>
-            <h2>{{ bodies[0]['h2'] }}</h2>
-            <p>{{ bodies[0]['paragraph'] |nl2br }}</p>
+            <h1 class="h1">{{ bodies[0]['h1'] }}</h1>
+            <h2 class="h2">{{ bodies[0]['h2'] }}</h2>
+            <p class="p-0">{{ bodies[0]['paragraph'] |nl2br }}</p>
         </div>
     {%  else %}
         <div class="col-12">
-            <h1>{{ bodies[0]['h1'] }}</h1>
+            <h1 class="h1">{{ bodies[0]['h1'] }}</h1>
         </div>
         {% for body in bodies %}
         <div class="col-3">
             <div class="{{ body['icon']}}"></div>
-            <h2>{{ body['h2'] }}</h2>
-            <p>{{ body['paragraph'] |nl2br }}</p>
+            <h2 class="h2">{{ body['h2'] }}</h2>
+            <p class="p-0">{{ body['paragraph'] |nl2br }}</p>
         </div>
         {%  endfor %}
     {%  endif %}

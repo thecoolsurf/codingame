@@ -13,6 +13,7 @@ class IndexControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertSelectorTextContains('html h1.h1', 'Home');
     }
 
     public function testAbout()
