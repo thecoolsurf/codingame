@@ -4,7 +4,6 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -25,7 +24,7 @@ class SecurityController extends AbstractController
     }
     
     /**
-     * @Method({"POST"})
+     * @Route({"POST"})
      * @Route("/login", name="login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
@@ -48,7 +47,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/logout", name="logout")
      */
     public function logout()

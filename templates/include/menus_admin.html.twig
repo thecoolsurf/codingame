@@ -1,4 +1,4 @@
-{% if is_granted('ROLE_ADMIN') %}
+{% if 'admin' in app.request.attributes.get('_route') and is_granted('ROLE_ADMIN') %}
     <ul class="navbar-nav mr-auto">
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -11,15 +11,16 @@ class IndexControllerTest extends WebTestCase
     public function testHome()
     {
         $client = static::createClient();
-        $client->request('GET', '/');
+        $crawler = $client->request('GET', '/');
+        $this->assertTrue($crawler->filter('html:contains("Home")')->count() > 0);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertSelectorTextContains('html h1.h1', 'Home');
     }
 
     public function testAbout()
     {
         $client = static::createClient();
-        $client->request('GET', '/about');
+        $crawler = $client->request('GET', '/about');
+        $this->assertTrue($crawler->filter('html:contains("About")')->count() > 0);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 

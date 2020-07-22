@@ -4,7 +4,6 @@
 namespace App\Controller\Practice;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +31,7 @@ class QuestionController extends AbstractController
     
     /**
      * Public display question by ID
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/practice/{slug}/question-{id}", name="practice")
      */
     public function question($slug, $id)
@@ -72,7 +71,7 @@ class QuestionController extends AbstractController
     
     /**
      * Update or insert response by question ID
-     * @Method({"POST"})
+     * @Route({"POST"})
      * @Route("/ajax/question/updateorinsert", name="ajax_question_updateorinsert")
      */
     public function updateOrInsertCode(Request $request)
@@ -110,7 +109,7 @@ class QuestionController extends AbstractController
     
     /**
      * Display result code for the question number 4
-     * @Method({"POST"})
+     * @Route({"POST"})
      * @Route("/ajax/question/position", name="ajax_question_position")
      */
     public function getPosition(Request $request)

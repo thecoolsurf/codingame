@@ -5,7 +5,6 @@ namespace App\Controller\Admin;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\Admin\EntitiesRepository as EntitiesRep;
@@ -36,7 +35,7 @@ class CategoryController extends AbstractController
     
     /**
      * LISTING
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/category/listing", name="admin_category_listing")
      */
     public function listing()
@@ -52,7 +51,7 @@ class CategoryController extends AbstractController
     
     /**
      * EDIT
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/category/edit/{id}", name="admin_category_edit")
      */
     public function edit(Request $request, $id)
@@ -83,7 +82,7 @@ class CategoryController extends AbstractController
     
     /**
      * NEW
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/category/new", name="admin_category_new")
      */
     public function new(Request $request)
@@ -114,7 +113,7 @@ class CategoryController extends AbstractController
     
     /**
      * DELETE
-     * @Method({"GET"})
+     * @Route({"GET"})
      * @Route("/admin/category/delete/{id}", name="admin_category_delete")
      */
     public function delete($id)
