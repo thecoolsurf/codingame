@@ -5,6 +5,7 @@ namespace App\Controller\Practice;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\Home\BodyRepository as BodyRep;
@@ -31,7 +32,6 @@ class QuestionController extends AbstractController
     
     /**
      * Public display question by ID
-     * @Route({"GET"})
      * @Route("/practice/{slug}/question-{id}", name="practice")
      */
     public function question($slug, $id)
@@ -71,13 +71,12 @@ class QuestionController extends AbstractController
     
     /**
      * Update or insert response by question ID
-     * @Route({"POST"})
      * @Route("/ajax/question/updateorinsert", name="ajax_question_updateorinsert")
      */
     public function updateOrInsertCode(Request $request)
     {
         $id = $request->request->get('id');
-        $code = $request->request->get('code');
+        $code = trim($request->request->get('code'));
         $em = $this->getDoctrine()->getManager();
         $question = $this->question_rep->find($id);
         // response
@@ -95,7 +94,7 @@ class QuestionController extends AbstractController
             $response = new ResponseEntity();
         endif;
         $response->setQuestion($question);
-        $response->setAnswer(trim($code));
+        $response->setAnswer($code);
         $em->persist($response);
         $em->flush();
         $msg  = '<div class="alert '.$alert_class.'" role="alert">';
@@ -109,7 +108,6 @@ class QuestionController extends AbstractController
     
     /**
      * Display result code for the question number 4
-     * @Route({"POST"})
      * @Route("/ajax/question/position", name="ajax_question_position")
      */
     public function getPosition(Request $request)

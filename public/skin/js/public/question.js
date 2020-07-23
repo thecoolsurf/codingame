@@ -1,5 +1,5 @@
 function sendmycode() {
-    var code = $('#textarea').val();
+    var code = $.trim($('#textarea').val());
     var id = $('#textarea').data('id');
     var params = $.param({id:id,code:code});
     console.log(id+'|'+code);
