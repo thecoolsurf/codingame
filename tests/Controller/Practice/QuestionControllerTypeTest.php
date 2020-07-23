@@ -1,24 +1,15 @@
 <?php
-// src/Tests/Controller/Practice/QuestionControllerTest.php
+// src/Tests/Controller/Practice/QuestionControllerTypeTest.php
 
 namespace App\Tests\Controller\Practice;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Form\Test\TypeTestCase;
 use App\Entity\Question;
 use App\Entity\Response;
 use App\Form\ResponseFormType;
 
-class QuestionControllerTest extends TypeTestCase
+class QuestionControllerTypeTest extends TypeTestCase
 {
-    
-    public function question()
-    {
-        $client = WebTestCase::createClient();
-        $crawler = $client->request('GET', '/practice/php/question-1');
-        $this->assertTrue($crawler->filter('html:contains("Practice")')->count() > 0);
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-    }
     
     public function testUpdateOrInsertCode()
     {
