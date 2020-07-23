@@ -88,10 +88,10 @@ class QuestionController extends AbstractController
         endif;
         if ($response):
             $alert_class = 'alert-warning';
-            $alert_label = 'Update successfully!';
+            $alert_label = 'Update successfully question %s!';
         else:
             $alert_class = 'alert-success';
-            $alert_label = 'Insert successfully!';
+            $alert_label = 'Insert successfully question %s!';
             $response = new ResponseEntity();
         endif;
         $response->setQuestion($question);
@@ -99,7 +99,7 @@ class QuestionController extends AbstractController
         $em->persist($response);
         $em->flush();
         $msg  = '<div class="alert '.$alert_class.'" role="alert">';
-        $msg .= $alert_label;
+        $msg .= sprintf($alert_label, $question->getId());
         $msg .= '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
         $msg .= '<span aria-hidden="true">&times;</span>';
         $msg .= '</button>';
