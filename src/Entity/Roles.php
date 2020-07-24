@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\RolesRepository;
+use App\Repository\Security\RolesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

@@ -10,12 +10,22 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use App\Repository\RolesRepository;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
 
 class UserFormType extends AbstractType
 {
+    
+    private $roles = [];
+
+    public function __construct(EntityManagerInterface $em) 
+    { 
+        $roles_rep = $em->getRepository('App:Roles')->findAll();
+        foreach ($roles_rep as $role):
+            array_push($this->roles,[$role->getName()=>$role->getLabel()]);
+        endforeach;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -29,23 +39,11 @@ class UserFormType extends AbstractType
                 'attr' => ['class' => 'form-row'],
             ])
             ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'User' => 'ROLE_USER',
-                    'Administrator' => 'ROLE_ADMIN'
-                ],
+                'attr' => ['class' => 'form-row'],
+                'choices' => $this->roles,
                 'expanded' => true,
                 'multiple' => true,
-                'label' => 'Rôles' 
             ])
-//            ->add('roles',EntityType::class, [
-//                'class' => 'App:Roles',
-//                'query_builder'=>function(\Doctrine\ORM\EntityRepository $er){
-//                     return $er->createQueryBuilder('r')->orderBy('r.name','ASC');
-//                },
-//                'choice_label'=>'name',
-//                'data' => true,
-//                'mapped' => true,
-//            ])
             ->add('lastname', TextType::class, [
                 'constraints' => new NotBlank(['message' => 'Complete this field.']),
                 'attr' => ['class' => 'form-row'],
