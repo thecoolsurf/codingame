@@ -17,6 +17,7 @@ security:
         main:
             anonymous: lazy
             provider: app_user_provider
+            context: secured_area
             guard:
                 authenticators:
                     - App\Security\UserAuthenticator

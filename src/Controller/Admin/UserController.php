@@ -35,26 +35,26 @@ class UserController extends AbstractController
     
     /**
      * LISTING
-     * @Route({"GET"})
      * @Route("/admin/user/listing", name="admin_user_listing")
      */
     public function listing()
     {
+        $entities = $this->entities_rep->getEntities();
         $rows = $this->user_rep->findAll();
         return $this->render('admin/listing/user.html.twig', [
             'url' => 'admin - listing',
+            'entities' => $entities,
             'rows' => $rows,
-            'entities' => $this->entities_rep->getEntities(),
         ]);
     }
     
     /**
      * EDIT
-     * @Route({"GET"})
      * @Route("/admin/user/edit/{id}", name="admin_user_edit")
      */
     public function edit(Request $request, $id)
     {
+        $entities = $this->entities_rep->getEntities();
         $user = $this->user_rep->find($id);
         $form = $this->createForm(UserFormType::class, $user);
         $form->handleRequest($request);
@@ -66,11 +66,13 @@ class UserController extends AbstractController
             $em->flush();
             return $this->render('admin/listing/user.html.twig', [
                 'url' => 'admin - listing',
+                'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/user.html.twig', [
                 'url' => 'admin - edit',
+                'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
         endif;
@@ -78,11 +80,11 @@ class UserController extends AbstractController
     
     /**
      * NEW
-     * @Route({"GET"})
      * @Route("/admin/user/new", name="admin_user_new")
      */
     public function new(Request $request)
     {
+        $entities = $this->entities_rep->getEntities();
         $user = new User();
         $form = $this->createForm(UserFormType::class, $user);
         $form->handleRequest($request);
@@ -94,11 +96,13 @@ class UserController extends AbstractController
             $em->flush();
             return $this->redirectToRoute('admin_user_listing',[
                 'url' => 'admin - listing',
+                'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/user.html.twig', [
                 'url' => 'admin - new',
+                'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
         endif;
@@ -106,7 +110,6 @@ class UserController extends AbstractController
     
     /**
      * DELETE
-     * @Route({"GET"})
      * @Route("/admin/user/delete/{id}", name="admin_user_delete")
      */
     public function delete($id)
