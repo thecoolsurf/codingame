@@ -21,8 +21,8 @@ class UserFormType extends AbstractType
 
     public function __construct(EntityManagerInterface $em) 
     { 
-        $roles_rep = $em->getRepository('App:Roles')->findAll();
-        foreach ($roles_rep as $role):
+        $roles = $em->getRepository('App:Roles')->findAll();
+        foreach ($roles as $role):
             array_push($this->roles,[$role->getName()=>$role->getLabel()]);
         endforeach;
     }
