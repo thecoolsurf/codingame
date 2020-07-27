@@ -1,0 +1,27 @@
+{# templates/admin/form/body.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - edit body{% endblock %}
+
+{% block body %}
+    <div class="row" style="display: flow-root">
+        <p><a href="{{ path('admin_roles_listing') }}">Back to listing</a></p>
+    </div>
+    <div class="row">
+        {{form_start(form_edit)}}
+        <p class="form-group">
+            {{form_row(form_edit.name)}}
+        </p>
+        <p class="form-group">
+            {{form_row(form_edit.label)}}
+        </p>
+        <p class="form-group">
+            {{form_row(form_edit.submit)}}
+        </p>
+        {{form_end(form_edit)}}
+    </div>
+    <div class="row" style="display: flow-root">
+        <p><a href="{{ path('admin_roles_listing') }}">Back to listing</a></p>
+    </div>
+{% endblock %}
