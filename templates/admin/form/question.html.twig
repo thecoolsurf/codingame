@@ -5,10 +5,16 @@
 {% block title %}Admin - edit question{% endblock %}
 
 {% block body %}
-    <div class="col-xs-12">
+    <div class="row" style="display: flow-root">
+        <p><a href="{{ path('admin_question_listing') }}">Back to listing</a></p>
+    </div>
+    <div class="row">
         {{form_start(form_edit)}}
         <p class="form-group">
             {{form_row(form_edit.categories)}}
+        </p>
+        <p class="form-group">
+            {{form_row(form_edit.sort)}}
         </p>
         <p class="form-group">
             {{form_row(form_edit.title)}}
@@ -19,9 +25,9 @@
         <p class="form-group">
             {{form_row(form_edit.submit)}}
         </p>
-        <p class="form-group">
-            <a href="{{ path('admin_question_listing') }}">Back to listing</a>
-        </p>
         {{form_end(form_edit)}}
+    </div>
+    <div class="row" style="display: flow-root">
+        <p><a href="{{ path('admin_question_listing') }}">Back to listing</a></p>
     </div>
 {% endblock %}

@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% for row in question %}
     <div class="row">
         <div class="col-12">
-            <h3>{{ row.title }}</h3>
-            <p>{{ row.description }}</p>            
+            <h3>{{ question.title }}</h3>
+            <p>{{ question.description }}</p>            
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            {% set response_answer = response[0] is defined ? response[0].answer : null %}
+            {% set question_id = question ? question.id : null %}
+            {% set response_answer = response ? response.answer : null %}
             <h5>Your code</h5>
             <p>
-                <textarea id="textarea" class="form-control" placeholder="Put your code here..." data-id="{{ row.id }}">
+                <textarea id="textarea" class="form-control" placeholder="Put your code here..." data-id="{{ question_id }}">
                     {{ response_answer }}
                 </textarea>
             </p>
@@ -26,11 +26,10 @@
         <div class="col-12">
             <h5>Your result</h5>
             <div id="my-result">
-                {% include 'public/practice/'~slug~'/answer-'~row.id~'.html.twig' %}
+                {% include 'public/practice/'~slug~'/answer-'~question.id~'.html.twig' %}
             </div>
         </div>
     </div>
-    {%  endfor %}
 {% endblock %}
 
 {% block javascript %}

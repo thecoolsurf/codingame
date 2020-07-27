@@ -44,6 +44,21 @@ class QuestionRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
         return $result;
+    }    /**
+     * @return Question[] Returns an array of Question objects
+     */
+    public function findBySlugAndNumber($slug,$id)
+    {
+        $result = $this->createQueryBuilder('q')
+//            ->addSelect('q.id AS question_id')
+            ->leftJoin('q.categories', 'c')
+            ->where('c.slug = :slug')
+            ->andWhere('q.sort = :id')
+            ->setParameters(['slug'=> $slug,'id'=>$id])
+            ->orderBy('q.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+        return $result;
     }
 
 }

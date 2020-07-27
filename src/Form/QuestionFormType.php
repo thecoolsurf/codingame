@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -25,6 +26,17 @@ class QuestionFormType extends AbstractType
                 },
                 'choice_label' => 'title',
                 'attr' => ['class' => 'form-row'],
+            ])
+            ->add('sort', ChoiceType::class, [
+                'attr' => ['class' => 'form-row'],
+                'choices' => [
+                    '-- Choose --' => 0,
+                    'Page 1' => 1,
+                    'Page 2' => 2,
+                    'Page 3' => 3,
+                    'Page 4' => 4,
+                    'Page 5' => 5,
+                ],
             ])
             ->add('title', TextType::class, [
                 'constraints'=>new NotBlank(['message'=>'Complete this field.']),

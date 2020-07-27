@@ -5,7 +5,6 @@ namespace App\Controller\Practice;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\Home\BodyRepository as BodyRep;
@@ -38,13 +37,8 @@ class QuestionController extends AbstractController
     {
         $bodies = $this->body_rep->findBodyBySlug('practice');
         $navigation = $this->category_rep->getNavigationCategories();
-        $question = $this->question_rep->find($id);
-        // response
-        if (array_key_exists(0, $this->response_rep->findBy(['question'=>$question->getId()]))):
-            $response = $this->response_rep->findBy(['question'=>$id])[0];
-        else:
-            $response = $this->response_rep->findBy(['question'=>$question->getId()]);
-        endif;
+        $question = $this->question_rep->findBySlugAndNumber($slug,$id);
+        $response = $this->response_rep->findBy(['question'=>$id]);
         // CAUTION: carefull with Datafixture auto increment
         switch ($id):
             case 3:

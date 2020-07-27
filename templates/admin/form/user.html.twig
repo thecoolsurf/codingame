@@ -5,6 +5,9 @@
 {% block title %}Admin - edit question{% endblock %}
 
 {% block body %}
+    <div class="row" style="display: flow-root">
+        <p><a href="{{ path('admin_user_listing') }}">Back to listing</a></p>
+    </div>
     <div class="row">
         <div class="col">
             {{form_start(form_edit)}}
@@ -43,10 +46,10 @@
             <p class="form-group">
                 {{form_row(form_edit.submit)}}
             </p>
-            <p class="form-group">
-                <a href="{{ path('admin_user_listing') }}">Back to listing</a>
-            </p>
             {{form_end(form_edit)}}
         </div>
+    <div class="row" style="display: flow-root">
+        <p><a href="{{ path('admin_user_listing') }}">Back to listing</a></p>
+    </div>
     </div>
 {% endblock %}

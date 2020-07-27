@@ -30,13 +30,18 @@ class Question
      */
     private $title;
     
-    /* ********************************************************************** */
-    
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $sort;
+
+    /* ********************************************************************** */
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +79,18 @@ class Question
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getSort(): ?int
+    {
+        return $this->sort;
+    }
+
+    public function setSort(int $sort): self
+    {
+        $this->sort = $sort;
 
         return $this;
     }
