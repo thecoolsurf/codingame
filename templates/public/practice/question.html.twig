@@ -2,8 +2,8 @@
 
 {% block body %}
     {% set slug =  app.request.get('slug') %}
-    {% set id =  app.request.get('id') %}
-    {% set response_answer = response[0] ? response[0].answer : null %}
+    {% set sort =  app.request.get('sort') %}
+    {% set response_answer = response[0] is defined ? response[0].answer : null %}
     {% if question[0].title is defined %}
     <div class="row">
         <div class="col-12">
@@ -15,7 +15,7 @@
         <div class="col-12">
             <h5>Your code</h5>
             <p>
-                <textarea id="textarea" class="form-control" placeholder="Put your code here..." data-id="{{ id }}">
+                <textarea id="textarea" class="form-control" placeholder="Put your code here..." data-id="{{ sort }}">
                     {{ response_answer }}
                 </textarea>
             </p>
@@ -28,14 +28,14 @@
         <div class="col-12">
             <h5>Your result</h5>
             <div id="my-result">
-                {% include 'public/practice/'~slug~'/answer-'~id~'.html.twig' %}
+                {% include 'public/practice/'~slug~'/answer-'~sort~'.html.twig' %}
             </div>
         </div>
     </div>
     {% else %}
     <div class="row">
         <div class="col-12">
-            <div class="alert alert-primary">There is no question with parameters "{{ slug }}" and "{{ id }}".</div>
+            <div class="alert alert-primary">There is no question with parameters "{{ slug }}" and "{{ sort }}".</div>
         </div>
     </div>
     {%  endif %}

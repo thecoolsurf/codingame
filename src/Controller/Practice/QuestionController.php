@@ -31,16 +31,22 @@ class QuestionController extends AbstractController
     
     /**
      * Public display question by ID
-     * @Route("/practice/{slug}/question-{id}", name="practice")
+     * @Route("/practice/{slug}/question-{sort}", name="practice")
      */
-    public function question($slug, $id)
+    public function question($slug, $sort)
     {
         $bodies = $this->body_rep->findBodyBySlug('practice');
         $navigation = $this->category_rep->getNavigationCategories();
-        $question = $this->question_rep->findBySlugAndNumber($slug,$id);
-        $response = $this->response_rep->findBy(['question'=>$id]);
+        $question = $this->question_rep->findBySlugAndNumber($slug,$sort);
+        if (array_key_exists(0, $question)):
+            $question_id = $question[0]->getId();
+            $response = $this->response_rep->findBy(['question'=>$question_id]);
+        else:
+            $question_id = null;
+            $response = null;
+        endif;
         // CAUTION: carefull with Datafixture auto increment
-        switch ($id):
+        switch ($question_id):
             case 3:
                 $datas = $this->question_rep->getRandomNumeric();
             break;
