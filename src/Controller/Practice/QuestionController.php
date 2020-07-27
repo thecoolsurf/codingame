@@ -51,7 +51,7 @@ class QuestionController extends AbstractController
                 $datas = [];
             break;
         endswitch;
-        return $this->render('public/practice/'.$slug.'/question.html.twig', [
+        return $this->render('public/practice/question.html.twig', [
             'url' => 'practice',
             'slug' => $slug,
             'bodies' => $bodies,
