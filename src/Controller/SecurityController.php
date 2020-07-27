@@ -31,7 +31,7 @@ class SecurityController extends AbstractController
     {
         $bodies = $this->body_rep->findBodyBySlug('login');
         $navigation = $this->category_rep->getNavigationCategories();
-        if ($this->getUser()):
+        if ($this->getUser() && $this->isGranted('ROLE_ADMIN')):
             return $this->redirectToRoute('admin_user_listing');
         endif;
         $error = $authenticationUtils->getLastAuthenticationError();

@@ -54,7 +54,7 @@ class QuestionController extends AbstractController
                 $datas = $this->question_rep->getPosition(10,20,30,40);
             break;
             default:
-                $datas = [];
+                $datas = null;
             break;
         endswitch;
         return $this->render('public/practice/question.html.twig', [
