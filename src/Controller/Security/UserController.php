@@ -51,14 +51,6 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/logout", name="logout")
-     */
-    public function logout()
-    {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
-    }
-
-    /**
      * @Route("/profil", name="profil")
      */
     public function profil(Request $request)
@@ -66,21 +58,22 @@ class UserController extends AbstractController
         $bodies = $this->body_rep->findBodyBySlug('profil');
         $navigation = $this->category_rep->getNavigationCategories();
         $user = $this->getUser();
-        $form = $this->createForm(UserFormType::class, $user);
+        $form = $this->createForm(UserFormType::class, $user, ['user'=>$this->getUser()]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()):
             $datas = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($datas);
             $em->flush();
-            return $this->render('public/home/user.html.twig', [
+            return $this->render('security/user.html.twig', [
                 'title' => 'User profil',
                 'bodies' => $bodies,
                 'categories' => $navigation[0],
                 'questions' => $navigation[1],
+                'form_edit' => $form->createView(),
             ]);
         else:
-            return $this->render('public/home/user.html.twig', [
+            return $this->render('security/user.html.twig', [
                 'title' => 'User profil',
                 'bodies' => $bodies,
                 'categories' => $navigation[0],
@@ -90,5 +83,13 @@ class UserController extends AbstractController
         endif;
     }
     
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logout()
+    {
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
     
 }
