@@ -1,9 +1,8 @@
+<div class="col">
 {% if 'admin' in app.request.attributes.get('_route') and is_granted('ROLE_ADMIN') %}
     <ul class="navbar-nav mr-auto">
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Admin entities
-        </a>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             {% for entity in entities %}
                 <a class="dropdown-item" href="{{ '/admin/'~entity~'/listing' }}">{{ entity|capitalize }}</a>
@@ -12,3 +11,4 @@
     </li>
 </ul>
 {% endif %}
+</div>

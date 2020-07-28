@@ -5,30 +5,35 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-    <div class="row" style="display: flow-root">
-        <h3>{{ title }}</h3>
-        <p><a href="{{ path('admin_response_new') }}" class="btn btn-primary">Add response</a></p>
-        <span style="float:right">{{ 'Total: '~rows|length }}</span>
+    <div class="row">
+        <div class="col">
+            <h3>{{ title }} <span style="font-size: 14px">{{ '(total: '~rows|length~')' }}</span></h3>
+        </div>
+        <div class="col">
+            <a href="{{ path('admin_response_new') }}" class="btn btn-primary float-right">Add response</a>
+        </div>
     </div>
     <div class="row">
         <table class="table" width="100%">
             <tbody>
                 <tr>
-                    <th>Category</th>
+                    <th width="200">Category</th>
+                    <th width="200">User</th>
                     <th>Title</th>
                     <th></th>
                 </tr>
                 {% for row in rows %}
-                <tr id="{{ 'row'~row.id }}">
-                    <td>{{ row.question.categories.title }}</td>
-                    <td>{{ row.question.title }}</td>
-                    <td width="50">
-                        <a href="{{ path('admin_response_edit', { 'id':row.id }) }}" class="btn"><i class="fa fa-pencil"></i></a>
-                    </td>
-                    <td width="50">
-                        <a href="{{ path('admin_response_delete', { 'id':row.id }) }}" class="btn"><i class="fa fa-trash"></i></a>
-                    </td>
-                </tr>
+                    <tr id="{{ 'row'~row.id }}">
+                        <td>{{ row.question.categories.title }}</td>
+                        <td>{{ row.user.username }}</td>
+                        <td>{{ row.question.title }}</td>
+                        <td width="50">
+                            <a href="{{ path('admin_response_edit', { 'id':row.id }) }}" class="btn"><i class="fa fa-pencil"></i></a>
+                        </td>
+                        <td width="50">
+                            <a href="{{ path('admin_response_delete', { 'id':row.id }) }}" class="btn"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
