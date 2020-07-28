@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\ResponseRepository;
+use App\Repository\Practice\ResponseRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Question;
 
