@@ -1,0 +1,52 @@
+{# templates/public/home/user.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <h3>{{ title }}</h3>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{form_start(form_edit)}}
+            <p class="form-group">
+                {{form_row(form_edit.username)}}
+            </p>
+            <p class="form-group">
+                {{form_row(form_edit.password)}}
+            </p>
+            <p class="form-group">
+                {{form_row(form_edit.roles)}}
+            </p>
+        </div>
+        <div class="col">
+            <p class="form-group">
+                {{form_row(form_edit.lastname)}}
+            </p>
+            <p class="form-group">
+                {{form_row(form_edit.firstname)}}
+            </p>
+            <p class="form-group">
+                {{form_row(form_edit.email)}}
+            </p>
+            <p class="form-group">
+                {{form_row(form_edit.phone)}}
+            </p>
+            <p class="form-group">
+                {{form_row(form_edit.address)}}
+            </p>
+            <p class="form-group">
+                {{form_row(form_edit.zipcode)}}
+            </p>
+            <p class="form-group">
+                {{form_row(form_edit.city)}}
+            </p>
+            <p class="form-group">
+                {{form_row(form_edit.submit)}}
+            </p>
+            {{form_end(form_edit)}}
+        </div>
+    </div>
+{% endblock %}
