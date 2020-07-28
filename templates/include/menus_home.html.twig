@@ -1,3 +1,4 @@
+{{ dump(bodies) }}
 {%  if is_granted('ROLE_ADMIN') %}
     {% set nav = ['home','logout'] %}
 {%  else %}
@@ -7,8 +8,9 @@
 {%  for item in nav %}
     {% if item == title %}{% set active = 'nav-item active' %}{%  else %}{% set active = 'nav-item' %}{% endif %}
     {% if item == 'home' %}{% set href = '/' %}{%  else %}{% set href = '/'~item %}{% endif %}
+    {% if item == 'home' %}{% set label = '<span class="fa fa-home"></span>' %}{%  else %}{% set label = item|capitalize %}{% endif %}
     <li class="{{ active }}">
-        <a class="nav-link" href="{{ href }}">{{ item|capitalize }}</a>
+        <a class="nav-link" href="{{ href }}">{{ label|raw }}</a>
     </li>
 {% endfor %}
 </ul>

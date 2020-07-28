@@ -16,4 +16,11 @@ class QuestionControllerWebTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
     
+    public function testPosition()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/ajax/question/position');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
+    
 }

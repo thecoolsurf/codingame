@@ -28,7 +28,7 @@ class BodyControllerTest extends WebTestCase
         return $user;
     }
 
-    public function testListing()
+    public function listing()
     {
         $user = $this->logAdminUser();
         $token = new PostAuthenticationGuardToken($user, 'secure_area', $user->getRoles());
@@ -37,9 +37,8 @@ class BodyControllerTest extends WebTestCase
         $session->save();
         $cookie = new Cookie($session->getName(), $session->getId());
         $this->client->getCookieJar()->set($cookie);
-        $crawler = $this->client->request('GET', '/admin/listing/body');
-        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
-//        $this->assertSame('Admin Dashboard', $crawler->filter('h1')->text());
+        $crawler = $this->client->request('GET', '/login');
+        $this->assertTrue($crawler->filter('html:contains("Login")')->count()>0);
     }
     
 //    public function testEdit()

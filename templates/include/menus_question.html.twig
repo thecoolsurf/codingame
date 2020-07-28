@@ -1,4 +1,4 @@
-{% if 'admin' not in app.request.attributes.get('_route') and not is_granted('ROLE_ADMIN') %}
+{% if 'practice' in app.request.attributes.get('_route') and is_granted('ROLE_USER') %}
 <ul class="navbar-nav mr-auto">
     {% for category in categories %}
         <li class="nav-item dropdown">

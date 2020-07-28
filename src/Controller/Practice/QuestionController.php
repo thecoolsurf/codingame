@@ -3,6 +3,7 @@
 
 namespace App\Controller\Practice;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +13,11 @@ use App\Repository\Practice\CategoryRepository as CategoryRep;
 use App\Repository\Practice\QuestionRepository as QuestionRep;
 use App\Repository\Practice\ResponseRepository as ResponseRep;
 use App\Entity\Response as ResponseEntity;
+
+/**
+ * Require ROLE_ADMIN for *every* controller method in this class.
+ * @IsGranted("ROLE_USER")
+ */
 
 class QuestionController extends AbstractController
 {
@@ -75,6 +81,7 @@ class QuestionController extends AbstractController
      */
     public function updateOrInsertCode(Request $request)
     {
+        $user = $this->getUser();
         $id = $request->request->get('id');
         $code = trim($request->request->get('code'));
         $em = $this->getDoctrine()->getManager();
@@ -93,6 +100,7 @@ class QuestionController extends AbstractController
             $alert_label = 'Insert successfully question %s!';
             $response = new ResponseEntity();
         endif;
+        $response->getUser($user);
         $response->setQuestion($question);
         $response->setAnswer($code);
         $em->persist($response);
