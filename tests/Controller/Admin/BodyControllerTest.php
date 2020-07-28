@@ -37,9 +37,9 @@ class BodyControllerTest extends WebTestCase
         $session->save();
         $cookie = new Cookie($session->getName(), $session->getId());
         $this->client->getCookieJar()->set($cookie);
-        $this->client->request('GET', '/admin/listing/body');
-        $this->client->request('GET', '/login');
-//        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/admin/listing/body');
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+//        $this->assertSame('Admin Dashboard', $crawler->filter('h1')->text());
     }
     
 //    public function testEdit()
