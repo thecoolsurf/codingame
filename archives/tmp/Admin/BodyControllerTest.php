@@ -21,7 +21,9 @@ class BodyControllerTest extends WebTestCase
         $this->em = $kernel->getContainer()->get('doctrine')->getManager();
     }
 
-    public function logAdminUser()
+    /* ********************************************************************** */
+    
+    public function testLogAdminUser()
     {
         $user = $this->em->getRepository(User::class)->findOneBy(['username' => 'user01']);
         $this->assertSame(['ROLE_ADMIN','ROLE_USER'],$user->getRoles());
