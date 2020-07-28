@@ -21,8 +21,8 @@ class PageController extends AbstractController
 {
     
     private $entities_rep;
-    private $category_rep;
-    private $category_edit;
+    private $page_rep;
+    private $page_edit;
  
     public function __construct(EntitiesRep $entities_rep, PageRep $page_rep, PageFormType $page_form)
     {
@@ -43,7 +43,7 @@ class PageController extends AbstractController
         $entities = $this->entities_rep->getEntities();
         $page = $this->page_rep->findAll();
         return $this->render('admin/listing/page.html.twig', [
-            'url' => 'admin - listing',
+            'title' => 'admin - listing page',
             'entities' => $entities,
             'rows' => $page,
         ]);
@@ -67,13 +67,13 @@ class PageController extends AbstractController
             $em->persist($datas);
             $em->flush();
             return $this->render('admin/listing/page.html.twig', [
-                'url' => 'admin - listing',
+                'title' => 'Admin - listing page',
                 'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/page.html.twig', [
-                'url' => 'admin - edit',
+                'title' => 'Admin - edit page',
                 'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
@@ -101,13 +101,13 @@ class PageController extends AbstractController
         endif;
 
             return $this->redirectToRoute('admin_page_listing',[
-                'url' => 'admin - listing',
+                'title' => 'Admin - listing page',
                 'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/page.html.twig', [
-                'url' => 'admin - new',
+                'title' => 'Admin - new page',
                 'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);

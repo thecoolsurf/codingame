@@ -43,7 +43,7 @@ class ResponseController extends AbstractController
         $entities = $this->entities_rep->getEntities();
         $rows = $this->response_rep->findAll();
         return $this->render('admin/listing/response.html.twig', [
-            'url' => 'admin - listing',
+            'title' => 'Admin - listing response',
             'entities' => $entities,
             'rows' => $rows,
         ]);
@@ -67,13 +67,13 @@ class ResponseController extends AbstractController
             $em->persist($datas);
             $em->flush();
             return $this->render('admin/listing/response.html.twig', [
-                'url' => 'admin - listing',
+                'title' => 'Admin - listing response',
                 'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/response.html.twig', [
-                'url' => 'admin - edit',
+                'title' => 'Admin - edit question',
                 'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
@@ -98,13 +98,13 @@ class ResponseController extends AbstractController
             $em->persist($datas);
             $em->flush();
             return $this->redirectToRoute('admin_response_listing',[
-                'url' => 'admin - listing',
+                'title' => 'Admin - listing response',
                 'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/response.html.twig', [
-                'url' => 'admin - new',
+                'title' => 'Admin - new response',
                 'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);

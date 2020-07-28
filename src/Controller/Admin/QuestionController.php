@@ -42,7 +42,7 @@ class QuestionController extends AbstractController
         $entities = $this->entities_rep->getEntities();
         $rows = $this->question_rep->findAll();
         return $this->render('admin/listing/question.html.twig', [
-            'url' => 'admin - listing',
+            'title' => 'Admin - listing question',
             'entities' => $entities,
             'rows' => $rows,
         ]);
@@ -66,13 +66,13 @@ class QuestionController extends AbstractController
             $em->persist($datas);
             $em->flush();
             return $this->render('admin/listing/question.html.twig', [
-                'url' => 'admin - listing',
+                'title' => 'Admin - listing question',
                 'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/question.html.twig', [
-                'url' => 'admin - edit',
+                'title' => 'Admin - edit question',
                 'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
@@ -97,13 +97,13 @@ class QuestionController extends AbstractController
             $em->persist($datas);
             $em->flush();
             return $this->redirectToRoute('admin_question_listing',[
-                'url' => 'admin - listing',
+                'title' => 'Admin - listing question',
                 'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/question.html.twig', [
-                'url' => 'admin - new',
+                'title' => 'Admin - new question',
                 'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);

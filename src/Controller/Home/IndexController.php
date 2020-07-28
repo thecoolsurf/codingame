@@ -28,7 +28,7 @@ class IndexController extends AbstractController
         $bodies = $this->body_rep->findBodyBySlug('home');
         $navigation = $this->category_rep->getNavigationCategories();
         return $this->render('public/home/index.html.twig', [
-            'url' => 'home',
+            'title' => 'home',
             'bodies' => $bodies,
             'categories' => $navigation[0],
             'questions' => $navigation[1],
@@ -43,7 +43,7 @@ class IndexController extends AbstractController
         $bodies = $this->body_rep->findBodyBySlug('about');
         $navigation = $this->category_rep->getNavigationCategories();
         return $this->render('public/home/index.html.twig', [
-            'url' => 'about',
+            'title' => 'about',
             'bodies' => $bodies,
             'categories' => $navigation[0],
             'questions' => $navigation[1],

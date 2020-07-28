@@ -43,7 +43,7 @@ class CategoryController extends AbstractController
         $entities = $this->entities_rep->getEntities();
         $rows = $this->category_rep->findAll();
         return $this->render('admin/listing/category.html.twig', [
-            'url' => 'admin - listing',
+            'title' => 'Admin - listing category',
             'entities' => $entities,
             'rows' => $rows,
         ]);
@@ -67,13 +67,13 @@ class CategoryController extends AbstractController
             $em->persist($datas);
             $em->flush();
             return $this->render('admin/listing/category.html.twig', [
-                'url' => 'admin - listing',
+                'title' => 'Admin - listing category',
                 'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/category.html.twig', [
-                'url' => 'admin - edit',
+                'title' => 'Admin - edit category',
                 'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
@@ -98,13 +98,13 @@ class CategoryController extends AbstractController
             $em->persist($datas);
             $em->flush();
             return $this->redirectToRoute('admin_category_listing',[
-                'url' => 'admin - listing',
+                'title' => 'Admin - listing category',
                 'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/category.html.twig', [
-                'url' => 'admin - new',
+                'title' => 'Admin - new category',
                 'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);

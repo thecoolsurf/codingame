@@ -42,7 +42,7 @@ class UserController extends AbstractController
         $entities = $this->entities_rep->getEntities();
         $rows = $this->user_rep->findAll();
         return $this->render('admin/listing/user.html.twig', [
-            'url' => 'admin - listing',
+            'title' => 'Admin - listing user',
             'entities' => $entities,
             'rows' => $rows,
         ]);
@@ -65,13 +65,13 @@ class UserController extends AbstractController
             $em->persist($datas);
             $em->flush();
             return $this->render('admin/listing/user.html.twig', [
-                'url' => 'admin - listing',
+                'title' => 'Admin - listing user',
                 'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/user.html.twig', [
-                'url' => 'admin - edit',
+                'title' => 'Admin - edit user',
                 'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
@@ -95,13 +95,13 @@ class UserController extends AbstractController
             $em->persist($datas);
             $em->flush();
             return $this->redirectToRoute('admin_user_listing',[
-                'url' => 'admin - listing',
+                'title' => 'Admin - listing user',
                 'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/user.html.twig', [
-                'url' => 'admin - new',
+                'title' => 'Admin - new user',
                 'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);

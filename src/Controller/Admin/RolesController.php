@@ -43,7 +43,7 @@ class RolesController extends AbstractController
         $entities = $this->entities_rep->getEntities();
         $roles = $this->roles_rep->findAll();
         return $this->render('admin/listing/roles.html.twig', [
-            'url' => 'admin - listing',
+            'title' => 'Admin - listing roles',
             'entities' => $entities,
             'rows' => $roles,
         ]);
@@ -67,13 +67,13 @@ class RolesController extends AbstractController
             $em->persist($datas);
             $em->flush();
             return $this->render('admin/listing/roles.html.twig', [
-                'url' => 'admin - listing',
+                'title' => 'Admin - listing roles',
                 'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/roles.html.twig', [
-                'url' => 'admin - edit',
+                'title' => 'Admin - edit roles',
                 'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
@@ -98,13 +98,13 @@ class RolesController extends AbstractController
             $em->persist($datas);
             $em->flush();
             return $this->redirectToRoute('admin_roles_listing',[
-                'url' => 'admin - listing',
+                'title' => 'Admin - listing roles',
                 'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/roles.html.twig', [
-                'url' => 'admin - new',
+                'title' => 'Admin - new roles',
                 'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);

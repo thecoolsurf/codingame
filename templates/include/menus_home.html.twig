@@ -5,7 +5,7 @@
 {%  endif %}
 <ul class="navbar-nav mr-auto">
 {%  for item in nav %}
-    {% if item == url %}{% set active = 'nav-item active' %}{%  else %}{% set active = 'nav-item' %}{% endif %}
+    {% if item == title %}{% set active = 'nav-item active' %}{%  else %}{% set active = 'nav-item' %}{% endif %}
     {% if item == 'home' %}{% set href = '/' %}{%  else %}{% set href = '/'~item %}{% endif %}
     <li class="{{ active }}">
         <a class="nav-link" href="{{ href }}">{{ item|capitalize }}</a>

@@ -2,11 +2,11 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin - listing roles{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block body %}
     <div class="row" style="display: flow-root">
-        <h3>Admin - listing roles</h3>
+        <h3>{{ title }}</h3>
         <p><a href="{{ path('admin_roles_new') }}" class="btn btn-primary">Add role</a></p>
         <span style="float:right">{{ 'Total: '~rows|length }}</span>
     </div>

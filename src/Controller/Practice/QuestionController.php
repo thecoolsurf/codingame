@@ -58,7 +58,7 @@ class QuestionController extends AbstractController
             break;
         endswitch;
         return $this->render('public/practice/question.html.twig', [
-            'url' => 'practice',
+            'title' => 'practice '.$slug,
             'slug' => $slug,
             'bodies' => $bodies,
             'categories' => $navigation[0],

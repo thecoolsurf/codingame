@@ -43,7 +43,7 @@ class BodyController extends AbstractController
         $entities = $this->entities_rep->getEntities();
         $body = $this->body_rep->findAll();
         return $this->render('admin/listing/body.html.twig', [
-            'url' => 'admin - listing',
+            'title' => 'Admin - listing body',
             'entities' => $entities,
             'rows' => $body,
         ]);
@@ -67,13 +67,13 @@ class BodyController extends AbstractController
             $em->persist($datas);
             $em->flush();
             return $this->render('admin/listing/body.html.twig', [
-                'url' => 'admin - listing',
+                'title' => 'Admin - listing body',
                 'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/body.html.twig', [
-                'url' => 'admin - edit',
+                'title' => 'Admin - edit body',
                 'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
@@ -98,13 +98,13 @@ class BodyController extends AbstractController
             $em->persist($datas);
             $em->flush();
             return $this->redirectToRoute('admin_body_listing',[
-                'url' => 'admin - listing',
+                'title' => 'Admin - listing body',
                 'entities' => $entities,
                 'rows' => $rows,
             ]);
         else:
             return $this->render('admin/form/body.html.twig', [
-                'url' => 'admin - new',
+                'title' => 'Admin - new body',
                 'entities' => $entities,
                 'form_edit' => $form->createView(),
             ]);
