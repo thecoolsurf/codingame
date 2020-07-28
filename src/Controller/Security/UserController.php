@@ -1,7 +1,7 @@
 <?php
-// src/Controller/SecurityController.php
+// src/Controller/Security/UserController.php
 
-namespace App\Controller;
+namespace App\Controller\Security;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,7 +11,7 @@ use App\Repository\Home\BodyRepository as BodyRep;
 use App\Repository\Practice\CategoryRepository as CategoryRep;
 
 
-class SecurityController extends AbstractController
+class UserController extends AbstractController
 {
 
     private $body_rep;
@@ -24,7 +24,6 @@ class SecurityController extends AbstractController
     }
     
     /**
-     * @Route({"POST"})
      * @Route("/login", name="login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
@@ -47,7 +46,6 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route({"GET"})
      * @Route("/logout", name="logout")
      */
     public function logout()

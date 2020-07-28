@@ -43,7 +43,7 @@ class PageController extends AbstractController
         $entities = $this->entities_rep->getEntities();
         $page = $this->page_rep->findAll();
         return $this->render('admin/listing/page.html.twig', [
-            'title' => 'admin - listing page',
+            'title' => 'Admin - listing page',
             'entities' => $entities,
             'rows' => $page,
         ]);

@@ -5,10 +5,13 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-    <div class="row" style="display: flow-root">
-        <h3>{{ title }}</h3>
-        <p><a href="{{ path('admin_user_new') }}" class="btn btn-primary">Add user</a></p>
-        <span style="float:right">{{ 'Total: '~rows|length }}</span>
+    <div class="row">
+        <div class="col">
+        <h3>{{ title }} <span style="font-size: 14px">{{ '(total: '~rows|length~')' }}</span></h3>
+        </div>
+        <div class="col">
+            <a href="{{ path('admin_user_new') }}" class="btn btn-primary float-right">Add user</a>
+        </div>
     </div>
     <div class="row">
         <table class="table" width="100%">
