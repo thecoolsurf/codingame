@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\Admin\EntitiesRepository as EntitiesRep;
 use App\Repository\UserRepository as UserRep;
-use App\Form\UserFormType;
+use App\Form\Admin\UserFormType;
 use App\Entity\User;
 
 /**

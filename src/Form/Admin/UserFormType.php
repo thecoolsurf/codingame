@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Admin;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
@@ -30,7 +29,6 @@ class UserFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $user = $options['user'];
         $builder
             ->add('username', TextType::class, [
                 'constraints' => new NotBlank(['message' => 'Complete this field.']),
@@ -40,23 +38,12 @@ class UserFormType extends AbstractType
                 'constraints' => new NotBlank(['message' => 'Complete this field.']),
                 'attr' => ['class' => 'form-row'],
             ])
-            ;
-//        if (in_array('ROLE_USER', $user->getRoles())):
-//        $builder
-//            ->add('roles', HiddenType::class, [
-//                'attr' => ['class' => 'form-row'],
-//            ]);
-//        endif;
-        if (in_array('ROLE_ADMIN', $user->getRoles())):
-        $builder
             ->add('roles', ChoiceType::class, [
                 'attr' => ['class' => 'form-row'],
                 'choices' => $this->roles,
                 'expanded' => true,
                 'multiple' => true,
-            ]);
-        endif;
-        $builder
+            ])
             ->add('lastname', TextType::class, [
                 'constraints' => new NotBlank(['message' => 'Complete this field.']),
                 'attr' => ['class' => 'form-row'],
@@ -95,7 +82,6 @@ class UserFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'user' => null,
         ]);
     }
 

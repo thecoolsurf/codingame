@@ -10,7 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Repository\Home\BodyRepository as BodyRep;
 use App\Repository\Practice\CategoryRepository as CategoryRep;
-use App\Form\UserFormType;
+use App\Form\Publics\UserFormType;
+use App\Entity\User;
 
 
 class UserController extends AbstractController
@@ -28,10 +29,20 @@ class UserController extends AbstractController
     /**
      * @Route("/login", name="login")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
         $bodies = $this->body_rep->findBodyBySlug('login');
         $navigation = $this->category_rep->getNavigationCategories();
+        // create user
+        $user = new User();
+        $form = $this->createForm(UserFormType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()):
+            $datas = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($datas);
+            $em->flush();
+        endif;
         // security
         if ($this->getUser() && $this->isGranted('ROLE_USER')):
             return $this->redirectToRoute('profil');
@@ -39,13 +50,12 @@ class UserController extends AbstractController
             return $this->redirectToRoute('admin_user_listing');
         endif;
         $error = $authenticationUtils->getLastAuthenticationError();
-        $lastUsername = $authenticationUtils->getLastUsername();
-        return $this->render('security/login.html.twig', [
+        return $this->render('public/security/login.html.twig', [
             'title' => 'login',
             'bodies' => $bodies,
             'categories' => $navigation[0],
             'questions' => $navigation[1],
-            'last_username' => $lastUsername,
+            'form' => $form->createView(),
             'error' => $error,
         ]);
     }
@@ -58,29 +68,21 @@ class UserController extends AbstractController
         $bodies = $this->body_rep->findBodyBySlug('profil');
         $navigation = $this->category_rep->getNavigationCategories();
         $user = $this->getUser();
-        $form = $this->createForm(UserFormType::class, $user, ['user'=>$this->getUser()]);
+        $form = $this->createForm(UserFormType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()):
             $datas = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($datas);
             $em->flush();
-            return $this->render('security/user.html.twig', [
-                'title' => 'User profil',
-                'bodies' => $bodies,
-                'categories' => $navigation[0],
-                'questions' => $navigation[1],
-                'form_edit' => $form->createView(),
-            ]);
-        else:
-            return $this->render('security/user.html.twig', [
-                'title' => 'User profil',
-                'bodies' => $bodies,
-                'categories' => $navigation[0],
-                'questions' => $navigation[1],
-                'form_edit' => $form->createView(),
-            ]);
         endif;
+        return $this->render('public/security/register.html.twig', [
+            'title' => 'User profil',
+            'bodies' => $bodies,
+            'categories' => $navigation[0],
+            'questions' => $navigation[1],
+            'form' => $form->createView(),
+        ]);
     }
     
     /**

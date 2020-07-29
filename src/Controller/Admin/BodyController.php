@@ -9,8 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\Admin\EntitiesRepository as EntitiesRep;
 use App\Repository\Home\BodyRepository as BodyRep;
+use App\Form\Admin\BodyFormType;
 use App\Entity\Body;
-use App\Form\BodyFormType;
 
 /**
  * Require ROLE_ADMIN for *every* controller method in this class.

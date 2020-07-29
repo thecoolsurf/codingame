@@ -9,8 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\Admin\EntitiesRepository as EntitiesRep;
 use App\Repository\Security\RolesRepository as RolesRep;
+use App\Form\Admin\RolesFormType;
 use App\Entity\Roles;
-use App\Form\RolesFormType;
 
 /**
  * Require ROLE_ADMIN for *every* controller method in this class.

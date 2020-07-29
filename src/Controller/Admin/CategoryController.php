@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\Admin\EntitiesRepository as EntitiesRep;
 use App\Repository\Practice\CategoryRepository as CategoryRep;
-use App\Form\CategoryFormType;
+use App\Form\Admin\CategoryFormType;
 use App\Entity\Category;
 
 /**
